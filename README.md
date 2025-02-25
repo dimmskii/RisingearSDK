@@ -15,7 +15,7 @@
 - **Scripting**
   - All game code is written in Lua ([LuaJ](https://github.com/luaj/luaj "LuaJ")). It is moddable with a provided [LDT Eclipse](https://www.eclipse.org/ldt/ "LDT Eclipse") API for client and server functions necessary to build and host a custom game!
 - **Runs on all desktop OSes**
-  - Risingear runs on desktop Java 8. Play on Windows, Linux or MacOS!
+  - Risingear runs on desktop Java 11. Play on Windows, Linux or MacOS!
 *Android is in the works!*
 
 ### Instructions
