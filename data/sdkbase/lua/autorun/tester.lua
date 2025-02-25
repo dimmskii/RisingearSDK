@@ -1,0 +1,82 @@
+
+--if (CLIENT) then
+--  local path = geom.path(0,0)
+--  
+--  path:lineTo(0,1)
+--  path:curveTo(1,2,0.3,0.1,0.5,0.4)
+--  local rend = renderables.fromShape(path)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--end
+
+
+--if (CLIENT) then
+
+--	-- Testing the slick geom curve to see if it's a bezier because special brain reasons
+--	local p1 = geom.vec2(0,0)
+--	local p2 = geom.vec2(1,1)
+--	local p3 = geom.vec2(2,-1)
+--	local p4 = geom.vec2(3,0)
+--
+--  local shp = geom.curve(p1.x,p1.y,p2.x,p2.y,p3.x,p3.y,p4.x,p4.y)
+--  local rend = renderables.fromShape(shp)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--  shp = geom.circle(p1.x,p1.y,0.1)
+--  rend = renderables.fromShape(shp)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--  
+--  shp = geom.circle(p2.x,p2.y,0.1)
+--  rend = renderables.fromShape(shp)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--  
+--  shp = geom.circle(p3.x,p3.y,0.1)
+--  rend = renderables.fromShape(shp)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--  
+--  shp = geom.circle(p4.x,p4.y,0.1)
+--  rend = renderables.fromShape(shp)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--  
+--  
+--    shp = geom.line(0,1/3,3,1/3)
+--  rend = renderables.fromShape(shp)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--      shp = geom.line(2/3,-1,2/3,1)
+--  rend = renderables.fromShape(shp)
+--  rend:setLayer(renderables.LAYER_POST_GAME)
+--  renderables.add(rend)
+--  
+--end
+
+-- -- Creepy mannequin follower with inheritance test of initialize() printed to console
+--if SERVER then
+--  timer.simple(3,function()
+-- --    local sprite = sprites.create()
+-- --    sprite.width = 3
+-- --    sprite.height = 3
+-- --    sprite:setPlaying(false)
+-- --    sprite:addTexture("props/crates/cratewood01.png")
+-- --    sprite:centerOrigin()
+--  
+--    local skeleton = skeleton_factory.create("female")
+--    local  e = ents.create("test_d",false)
+--    e.position = geom.vec2(-136,5)
+-- --    e.sprite = sprite
+--    e.skeleton = skeleton
+--    ents.initialize(e)
+--  end)
+--
+--end

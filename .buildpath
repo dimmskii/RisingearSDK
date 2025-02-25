@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="data/sdkbase/lua"/>
+	<buildpathentry kind="src" path="data/mymod/lua"/>
+	<buildpathentry kind="lib" path="api.zip"/>
+</buildpath>

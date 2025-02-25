@@ -1,0 +1,1122 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<FGUI:Theme>
+	
+	<FGUI:init>
+		<!-- Define some global colors for use all over the UI -->
+		<Color value="white" name="textColor"/>
+		<Color value="black" name="highlightTextColor"/>
+
+		<Color rgba="176, 186, 219, 255" name="SCB default light"/>
+		<Color rgba="142, 164, 203, 255" name="SCB default dark"/>
+		<Color rgba="186, 196, 229, 255" name="SCB mouseHover light"/>
+		<Color rgba="152, 174, 213, 255" name="SCB mouseHover dark"/>
+	
+		<Color value="white" name="windowTitleColor"/>
+		<Color rgba="60, 120, 180, 240" name="windowBackgroundColor"/>
+
+		<!-- define fonts to use for text rendering -->
+		<ImageFont name="windowTitleFont">
+			<create fontName="Comic Sans MS" type="bold" size="15" antialiasing="false"/>
+		</ImageFont>
+	
+		<ImageFont name="defaultFont">
+			<create fontName="Serif" type="plain" size="14" antialiasing="false"/>
+		</ImageFont>
+		
+		<!-- TextRenderer use a font to render Text. They should be defined globally to save resources -->
+		<DirectTextRenderer name="defaultSimpleTextRenderer">
+			<Font ref="defaultFont"/>
+		</DirectTextRenderer>
+
+		<DirectTextRenderer name="defaultTitleTextRenderer">
+			<Font ref="windowTitleFont"/>
+		</DirectTextRenderer>
+		
+<!-- JOGL TextRenderer Usage Example
+		<ComplexTextRenderer name="TitleTextRendererJOGL">
+			<JOGLTextRenderer>
+				<AWTFont fontName="Serif" type="bold" size="16" antialiasing="false" fractionalMetrics="true"/>
+			</JOGLTextRenderer>
+		</ComplexTextRenderer>
+		
+		<ComplexTextRenderer name="DefaultTextRendererJOGL">
+			<JOGLTextRenderer>
+				<AWTFont fontName="Serif" type="plain" size="14" antialiasing="false" fractionalMetrics="false"/>
+			</JOGLTextRenderer>
+		</ComplexTextRenderer>
+-->
+		<!-- Load the texture that contains this skins for the buttons, etc.
+			 Resources are loaded relative to the path of the XML file!!
+		     Please note that you can make FGUI to consider the class path
+		     in order to load resources. Just switch 
+		     Binding.getInstance().setUseClassLoader(true) to true and FGUI
+		     will globally use the classloader to retrieve resources. -->
+		<Texture name="Default" filename="pixmaps.png"/>
+
+		<ContentFactory default="true">
+			<Color ref="textColor"/>
+			<DirectTextRenderer ref="defaultSimpleTextRenderer"/>
+		</ContentFactory>
+		
+		<!-- Backgrounds for general use. State information is stored inside so you can't use
+			global defined Backgrounds (-> All Decorators) as changes to a state on one
+			Widget will lead to a change in all Widgets that use this Background. -->
+		<PlainBackground name="darkenBackground">
+			<Color rgba="40, 50, 60, 205"/>
+		</PlainBackground>
+		
+		<!-- define borders -->
+		<PixmapBorder name="scrollButtonBorder">
+			<TopLeftPixmap x="94" y="39" width="2" height="2"> <!-- top-left corner -->
+				<Texture ref="Default"/>
+			</TopLeftPixmap>
+			
+			<TopEdgePixmap x="96" y="39" width="1" height="2"> <!-- top edge -->
+				<Texture ref="Default"/>
+			</TopEdgePixmap>
+			
+			<TopRightPixmap x="97" y="39" width="2" height="2"> <!-- top-right corner -->
+				<Texture ref="Default"/>
+			</TopRightPixmap>
+			
+			<RightEdgePixmap x="97" y="42" width="2" height="2"> <!-- right hand side edge -->
+				<Texture ref="Default"/>
+			</RightEdgePixmap>
+			
+			<BottomRightPixmap x="97" y="45" width="2" height="2"> <!-- bottom-right corner -->
+				<Texture ref="Default"/>
+			</BottomRightPixmap>
+			
+			<BottomEdgePixmap x="96" y="45" width="1" height="2"> <!-- bottom edge -->
+				<Texture ref="Default"/>
+			</BottomEdgePixmap>
+			
+			<BottomLeftPixmap x="94" y="45" width="2" height="2"> <!-- bottom-left corner -->
+				<Texture ref="Default"/>
+			</BottomLeftPixmap>
+			
+			<LeftEdgePixmap x="94" y="42" width="2" height="2"> <!-- left hand side edge -->
+				<Texture ref="Default"/>
+			</LeftEdgePixmap>
+		</PixmapBorder>
+
+		<PixmapBorder name="fieldBorder">
+			<TopLeftPixmap x="0" y="84" width="2" height="2"> <!-- top-left corner -->
+				<Texture ref="Default"/>
+			</TopLeftPixmap>
+			
+			<TopEdgePixmap x="4" y="84" width="2" height="2"> <!-- top edge -->
+				<Texture ref="Default"/>
+			</TopEdgePixmap>
+			
+			<TopRightPixmap x="8" y="84" width="2" height="2"> <!-- top-right corner -->
+				<Texture ref="Default"/>
+			</TopRightPixmap>
+			
+			<RightEdgePixmap x="8" y="87" width="2" height="2"> <!-- right hand side edge -->
+				<Texture ref="Default"/>
+			</RightEdgePixmap>
+			
+			<BottomRightPixmap x="8" y="92" width="2" height="2"> <!-- bottom-right corner -->
+				<Texture ref="Default"/>
+			</BottomRightPixmap>
+			
+			<BottomEdgePixmap x="4" y="92" width="2" height="2"> <!-- bottom edge -->
+				<Texture ref="Default"/>
+			</BottomEdgePixmap>
+			
+			<BottomLeftPixmap x="0" y="92" width="2" height="2"> <!-- bottom-left corner -->
+				<Texture ref="Default"/>
+			</BottomLeftPixmap>
+		
+			<LeftEdgePixmap x="0" y="87" width="2" height="2"> <!-- left hand side edge -->
+				<Texture ref="Default"/>
+			</LeftEdgePixmap>
+		</PixmapBorder>	
+		
+		<PixmapBorder label="default" enabled="true" name="tabBorder">
+			<TopLeftPixmap x="0" y="13" width="2" height="2"> <!-- top-left corner -->
+				<Texture ref="Default"/>
+			</TopLeftPixmap>
+			
+			<TopEdgePixmap x="4" y="13" width="2" height="2"> <!-- top edge -->
+				<Texture ref="Default"/>
+			</TopEdgePixmap>
+			
+			<TopRightPixmap x="8" y="13" width="2" height="2"> <!-- top-right corner -->
+				<Texture ref="Default"/>
+			</TopRightPixmap>
+			
+			<RightEdgePixmap x="8" y="17" width="2" height="2"> <!-- right hand side edge -->
+				<Texture ref="Default"/>
+			</RightEdgePixmap>
+			
+			<BottomRightPixmap x="8" y="17" width="2" height="0"> <!-- bottom-right corner -->
+				<Texture ref="Default"/>
+			</BottomRightPixmap>
+			
+			<BottomEdgePixmap x="4" y="21" width="2" height="0"> <!-- bottom edge -->
+				<Texture ref="Default"/>
+			</BottomEdgePixmap>
+			
+			<BottomLeftPixmap x="0" y="21" width="2" height="0"> <!-- bottom-left corner -->
+				<Texture ref="Default"/>
+			</BottomLeftPixmap>
+		
+			<LeftEdgePixmap x="0" y="17" width="2" height="2"> <!-- left hand side edge -->
+				<Texture ref="Default"/>
+			</LeftEdgePixmap>
+		</PixmapBorder>	
+			
+		<PixmapBorder label="default" enabled="true" name="buttonBorder">
+			<TopLeftPixmap x="0" y="13" width="2" height="2"> <!-- top-left corner -->
+				<Texture ref="Default"/>
+			</TopLeftPixmap>
+			
+			<TopEdgePixmap x="4" y="13" width="2" height="2"> <!-- top edge -->
+				<Texture ref="Default"/>
+			</TopEdgePixmap>
+			
+			<TopRightPixmap x="8" y="13" width="2" height="2"> <!-- top-right corner -->
+				<Texture ref="Default"/>
+			</TopRightPixmap>
+			
+			<RightEdgePixmap x="8" y="17" width="2" height="2"> <!-- right hand side edge -->
+				<Texture ref="Default"/>
+			</RightEdgePixmap>
+			
+			<BottomRightPixmap x="8" y="21" width="2" height="2"> <!-- bottom-right corner -->
+				<Texture ref="Default"/>
+			</BottomRightPixmap>
+			
+			<BottomEdgePixmap x="4" y="21" width="2" height="2"> <!-- bottom edge -->
+				<Texture ref="Default"/>
+			</BottomEdgePixmap>
+			
+			<BottomLeftPixmap x="0" y="21" width="2" height="2"> <!-- bottom-left corner -->
+				<Texture ref="Default"/>
+			</BottomLeftPixmap>
+		
+			<LeftEdgePixmap x="0" y="17" width="2" height="2"> <!-- left hand side edge -->
+				<Texture ref="Default"/>
+			</LeftEdgePixmap>
+		</PixmapBorder>	
+		
+		<PixmapBorder label="focused" enabled="true" name="buttonBorderFocused">
+			<TopLeftPixmap x="158" y="133" width="2" height="2"> <!-- top-left corner -->
+				<Texture ref="Default"/>
+			</TopLeftPixmap>
+			
+			<TopEdgePixmap x="162" y="133" width="2" height="2"> <!-- top edge -->
+				<Texture ref="Default"/>
+			</TopEdgePixmap>
+			
+			<TopRightPixmap x="166" y="133" width="2" height="2"> <!-- top-right corner -->
+				<Texture ref="Default"/>
+			</TopRightPixmap>
+			
+			<RightEdgePixmap x="166" y="137" width="2" height="2"> <!-- right hand side edge -->
+				<Texture ref="Default"/>
+			</RightEdgePixmap>
+			
+			<BottomRightPixmap x="166" y="141" width="2" height="2"> <!-- bottom-right corner -->
+				<Texture ref="Default"/>
+			</BottomRightPixmap>
+			
+			<BottomEdgePixmap x="162" y="141" width="2" height="2"> <!-- bottom edge -->
+				<Texture ref="Default"/>
+			</BottomEdgePixmap>
+			
+			<BottomLeftPixmap x="158" y="141" width="2" height="2"> <!-- bottom-left corner -->
+				<Texture ref="Default"/>
+			</BottomLeftPixmap>
+		
+			<LeftEdgePixmap x="158" y="137" width="2" height="2"> <!-- left hand side edge -->
+				<Texture ref="Default"/>
+			</LeftEdgePixmap>
+		</PixmapBorder>	
+			
+		<GradientBackground label="default" enabled="true" name="DefaultElement">
+			<TopLeftColor rgba="242, 247, 249, 255"/>
+			<TopRightColor rgba="242, 247, 249, 255"/>
+			<BottomLeftColor rgba="198, 217, 233, 255"/>
+			<BottomRightColor rgba="198, 217, 233, 255"/>
+		</GradientBackground>
+		
+		<GradientBackground label="pressed" enabled="false" name="SelectedElement">
+			<TopLeftColor rgba="198, 217, 233, 255"/>
+			<TopRightColor rgba="198, 217, 233, 255"/>
+			<BottomLeftColor rgba="242, 247, 249, 255"/>
+			<BottomRightColor rgba="242, 247, 249, 255"/>
+		</GradientBackground>	
+		
+	</FGUI:init>
+
+<!-- define the appearance of a Label widget -->
+	<Label>
+		<Appearance alignment="middle">
+			<!-- define the spacing of this widget -->
+			<Margin all="2"/>
+			<Border all="0"/>
+			<Padding all="0"/>
+
+			<!-- define which TextRenderers will be used these should be created globally
+				as this saves resources. Otherwhise each TextRenderer will create its own
+				texture -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+			
+			<!-- define how text will look -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+		</Appearance>
+	</Label>
+
+<!-- define the appearance of a Button widget -->
+	<Button>
+		<Appearance alignment="middle">
+			<!-- define the spacing of this widget -->
+			<Margin left="1" right="1" top="2" bottom="2"/>
+			<Padding right="2" left="2" bottom="2" top="2"/>
+			<Border all="2"/>
+			
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+				<Style key="hovered" fontstyle="default">
+					<Color ref="highlightTextColor" />
+				</Style>
+			</TextStyle>
+
+			<!-- define backgrounds -->
+			<BackgroundDecorators>
+				<PlainBackground label="default" enabled="true">
+					<Color rgba="60, 120, 180, 240"/>
+				</PlainBackground>
+				<PlainBackground label="pressed" enabled="false">
+					<Color rgba="60, 120, 180, 240"/>
+				</PlainBackground>
+				<PlainBackground label="focused" enabled="false">
+					<Color rgba="60, 120, 180, 240"/>
+				</PlainBackground>
+				<PlainBackground label="hovered" enabled="false">
+					<Color rgba="60, 120, 180, 240"/>
+				</PlainBackground>
+	    		</BackgroundDecorators>
+
+			<!-- define foregrounds -->
+			<ForegroundDecorators>
+				<PixmapBorder ref="buttonBorder" label="default" enabled="true" />    
+				<PixmapBorder ref="buttonBorderFocused" label="focused" enabled="false" />  
+	    		</ForegroundDecorators>
+		</Appearance>
+	</Button>
+
+	<Window>
+		<Appearance>
+			<Border all="2"/>
+     			<BackgroundDecorators>
+				<PlainBackground>
+					<Color ref="windowBackgroundColor"/>
+				</PlainBackground>
+				<PixmapBorder>
+					<TopLeftPixmap x="10" y="13" width="2" height="2"> <!-- top-left corner -->
+						<Texture ref="Default"/>
+					</TopLeftPixmap>
+					<TopEdgePixmap x="14" y="13" width="2" height="2"> <!-- top edge -->
+						<Texture ref="Default"/>
+					</TopEdgePixmap>
+					<TopRightPixmap x="18" y="13" width="2" height="2"> <!-- top-right corner -->
+						<Texture ref="Default"/>
+					</TopRightPixmap>
+					<RightEdgePixmap x="18" y="17" width="2" height="2"> <!-- right hand side edge -->
+						<Texture ref="Default"/>
+					</RightEdgePixmap>
+					<BottomRightPixmap x="18" y="21" width="2" height="2"> <!-- bottom-right corner -->
+						<Texture ref="Default"/>
+					</BottomRightPixmap>
+					<BottomEdgePixmap x="14" y="21" width="2" height="2"> <!-- bottom edge -->
+						<Texture ref="Default"/>
+					</BottomEdgePixmap>
+					<BottomLeftPixmap x="10" y="21" width="2" height="2"> <!-- bottom-left corner -->
+						<Texture ref="Default"/>
+					</BottomLeftPixmap>
+					<LeftEdgePixmap x="10" y="17" width="2" height="2"> <!-- left hand side edge -->
+						<Texture ref="Default"/>
+					</LeftEdgePixmap>
+				</PixmapBorder>
+			</BackgroundDecorators>
+		</Appearance>
+		
+		<TitleLabel>
+			<Appearance alignment="left">
+				<Margin bottom="2" left="5"/>
+				<DirectTextRenderer ref="defaultTitleTextRenderer" key="default" />
+
+				<TextStyle key="default">
+					<Style key="default" fontstyle="default">
+						<Color ref="windowTitleColor" />
+					</Style>
+				</TextStyle>
+			</Appearance>
+		</TitleLabel>
+		
+		<CloseButton width="21" height="21" shrinkable="false" expandable="false" text="">
+			<Appearance alignment="middle">
+				<Margin all="2"/>
+				<Padding all="0"/>
+				<Border all="2"/>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+			</Appearance>
+			
+			<Pixmap x="119" y="0" width="21" height="21"> 
+				<Texture ref="Default"/>
+			</Pixmap>
+		</CloseButton>
+		
+		<TitleBar>
+			<Appearance>
+				<BackgroundDecorators>
+					<PlainBackground>
+						<Color rgba="0, 0, 0, 0"/>
+					</PlainBackground>
+				</BackgroundDecorators>
+			</Appearance>
+		</TitleBar>		
+		
+		<MinimizeButton width="21" height="21" shrinkable="false" expandable="false" text="">
+			<Appearance alignment="middle">
+				<Margin all="2"/>
+				<Padding all="0"/>
+				<Border all="2"/>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+			</Appearance>
+			
+			<Pixmap x="75" y="0" width="21" height="21"> 
+				<Texture ref="Default"/>
+			</Pixmap>
+		</MinimizeButton>
+		
+		<MaximizeButton width="21" height="21" shrinkable="false" expandable="false" text="">
+			<Appearance alignment="middle">
+				<Margin all="2"/>
+				<Padding all="0"/>
+				<Border all="2"/>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+			</Appearance>
+			
+			<Pixmap x="97" y="0" width="21" height="21"> 
+				<Texture ref="Default"/>
+			</Pixmap>
+		</MaximizeButton>
+		
+		<Content>
+			<Appearance>
+				<Margin all="3"/>
+			</Appearance>
+		</Content>
+	</Window>
+
+	<TabItem>
+		<Appearance>
+			<Margin all="0"/>
+			<Padding all="0"/>
+			<Border all="0"/>
+			<BackgroundDecorators>
+				<PlainBackground label="default" enabled="true">
+					<Color rgba="0, 0, 0, 0"/>
+				</PlainBackground>
+				<PlainBackground label="default" enabled="true">
+					<Color rgba="0, 0, 0, 0"/>
+				</PlainBackground>
+			</BackgroundDecorators>
+		</Appearance>
+		<TabButton>
+			<Appearance alignment="middle">
+			    <Margin left="1" right="1" top="2" bottom="0"/>
+			    <Padding right="2" left="2" bottom="2" top="2"/>
+			    <Border left="2" right="2" top="2" bottom="0"/>
+					<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+			    <BackgroundDecorators>
+						<PlainBackground label="default" enabled="true">
+							<Color rgba="32, 64, 96, 255"/>
+						</PlainBackground>
+						<GradientBackground label="pressed" enabled="false">
+							<TopLeftColor rgba="198, 217, 233, 255"/>
+							<TopRightColor rgba="198, 217, 233, 255"/>
+							<BottomLeftColor rgba="242, 247, 249, 255"/>
+							<BottomRightColor rgba="242, 247, 249, 255"/>
+						</GradientBackground>	
+						<PlainBackground label="focused" enabled="false">
+							<Color rgba="64, 64, 175, 255"/>
+						</PlainBackground>
+						<PlainBackground label="selected" enabled="false">
+							<Color rgba="60, 120, 180, 255"/>
+						</PlainBackground>
+
+						<PlainBackground label="hovered" enabled="false">
+							<Color rgba="64, 64, 175, 200"/>
+						</PlainBackground>
+			    </BackgroundDecorators>
+			    <ForegroundDecorators>
+						<PixmapBorder ref="tabBorder" enabled="true" />        	
+			    </ForegroundDecorators>
+			    
+			    <Color ref="textColor"/>
+			  </Appearance>
+			</TabButton>
+	</TabItem>
+	
+	<Tab>
+		<Appearance>
+			<Border all="1"/>
+		</Appearance>
+		<Header>
+			<Appearance>
+				<Border all="1"/>
+			</Appearance>
+		</Header>
+		<Content>
+			<Appearance>
+				<Border all="1"/>
+			</Appearance>
+		</Content>
+	</Tab>
+	
+	<TabItemLabel>
+		<Appearance>
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+		</Appearance>
+	</TabItemLabel>
+	
+	<CheckBox>
+		<Appearance alignment="left">
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+			<BackgroundDecorators>
+				<PlainBackground label="focused" enabled="false">
+					<Color rgba="255, 255, 255, 130"/>
+				</PlainBackground>
+				<PlainBackground label="hovered" enabled="false">
+					<Color rgba="150, 200, 255, 100"/>
+				</PlainBackground>
+			</BackgroundDecorators>
+			<Switches>
+				<PixmapSwitch x="0" y="0" width="13" height="13" label="selected"> 
+					<Texture ref="Default"/>
+				</PixmapSwitch>
+				<PixmapSwitch  x="13" y="0" width="13" height="13" label="deselected"> 
+					<Texture ref="Default"/>
+				</PixmapSwitch>
+			</Switches>
+		</Appearance>
+		<Pixmap x="13" y="0" width="13" height="13"> 
+			<Texture ref="Default"/>
+		</Pixmap>
+	</CheckBox>
+   
+	<RadioButton>
+		<Appearance alignment="left">
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+			<BackgroundDecorators>
+				<PlainBackground label="focused" enabled="false">
+					<Color rgba="255, 255, 255, 130"/>
+				</PlainBackground>
+				<PlainBackground label="hovered" enabled="false">
+					<Color rgba="150, 200, 255, 100"/>
+				</PlainBackground>
+			</BackgroundDecorators>
+			<Switches>
+				<PixmapSwitch x="39" y="0" width="13" height="13" label="deselected"> 
+					<Texture ref="Default"/>
+				</PixmapSwitch>
+				<PixmapSwitch x="26" y="0" width="13" height="13" label="selected"> 
+					<Texture ref="Default"/>
+				</PixmapSwitch>
+			</Switches>
+		</Appearance>
+		<Pixmap x="39" y="0" width="13" height="13"> 
+			<Texture ref="Default"/>
+		</Pixmap>
+	</RadioButton>
+
+	<Slider>
+		<VerticalAppearance>
+			<Margin all="2"/>
+		</VerticalAppearance>
+		<HorizontalAppearance>
+			<Margin all="2"/>
+			<BackgroundDecorators clear="true">
+				<PlainBackground label="default" enabled="true">
+					<Color rgba="78, 78, 78, 255"/>
+				</PlainBackground>
+			</BackgroundDecorators>
+		</HorizontalAppearance>
+		<HorizontalSliderButton>
+			<Appearance alignment="middle">
+				<Border all="2"/>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+				<BackgroundDecorators clear="true">
+					<GradientBackground label="default" enabled="true">
+						<TopLeftColor ref="SCB default light"/>
+						<TopRightColor ref="SCB default dark"/>
+						<BottomLeftColor ref="SCB default light"/>
+						<BottomRightColor ref="SCB default dark"/>
+					</GradientBackground>
+					<GradientBackground label="mouseHover" enabled="false">
+						<TopLeftColor ref="SCB mouseHover light"/>
+						<TopRightColor ref="SCB mouseHover dark"/>
+						<BottomLeftColor ref="SCB mouseHover light"/>
+						<BottomRightColor ref="SCB mouseHover dark"/>
+					</GradientBackground>	
+					<PlainBackground label="focused" enabled="false">
+						<Color rgba="255, 255, 255, 130"/>
+					</PlainBackground>
+					<PlainBackground label="hovered" enabled="false">
+						<Color rgba="150, 200, 255, 100"/>
+					</PlainBackground>
+					<PixmapBorder ref="scrollButtonBorder"/>
+				</BackgroundDecorators>
+				<switches clear="true"/>
+			</Appearance>
+			<Pixmap x="140" y="0" width="15" height="9"> 
+				<Texture ref="Default"/>
+			</Pixmap>
+		</HorizontalSliderButton>
+		
+		<VerticalSliderButton>
+			<Appearance alignment="middle">
+				<Border all="2"/>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+				<BackgroundDecorators clear="true">
+					<GradientBackground label="default" enabled="true">
+						<TopLeftColor ref="SCB default light"/>
+						<TopRightColor ref="SCB default dark"/>
+						<BottomLeftColor ref="SCB default light"/>
+						<BottomRightColor ref="SCB default dark"/>
+					</GradientBackground>
+					<GradientBackground label="mouseHover" enabled="false">
+						<TopLeftColor ref="SCB mouseHover light"/>
+						<TopRightColor ref="SCB mouseHover dark"/>
+						<BottomLeftColor ref="SCB mouseHover light"/>
+						<BottomRightColor ref="SCB mouseHover dark"/>
+					</GradientBackground>	
+					<PlainBackground label="focused" enabled="false">
+						<Color rgba="255, 255, 255, 130"/>
+					</PlainBackground>
+					<PlainBackground label="hovered" enabled="false">
+						<Color rgba="150, 200, 255, 100"/>
+					</PlainBackground>
+					<PixmapBorder ref="scrollButtonBorder"/>
+				</BackgroundDecorators>
+				<switches clear="true"/>
+			</Appearance>
+			<Pixmap x="140" y="9" width="9" height="17"> 
+				<Texture ref="Default"/>
+			</Pixmap>				
+		</VerticalSliderButton>
+	</Slider>
+	
+	<ScrollBar>
+		<ScrollLeftButton>
+			<Pixmap x="33" y="68" width="15" height="15">  
+				<Texture ref="Default"/>
+			</Pixmap>		
+			<Appearance>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+				<switches>
+					<PixmapSwitch x="33" y="68" width="15" height="15" label="default">  
+						<Texture ref="Default"/>
+					</PixmapSwitch>				
+					<PixmapSwitch x="18" y="128" width="15" height="15" label="hovered">  
+						<Texture ref="Default"/>
+					</PixmapSwitch>
+					<PixmapSwitch x="18" y="68" width="15" height="15" label="pressed"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>										
+				</switches>
+			</Appearance>
+		</ScrollLeftButton>
+		
+		<ScrollRightButton>
+			<Pixmap x="33" y="53" width="15" height="15"> 
+				<Texture ref="Default"/>
+			</Pixmap>
+			<Appearance>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+				<switches>
+					<PixmapSwitch x="33" y="53" width="15" height="15" label="default"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>
+						<PixmapSwitch x="18" y="113" width="15" height="15" label="hovered">  
+					<Texture ref="Default"/>
+						</PixmapSwitch>			
+					<PixmapSwitch x="18" y="53" width="15" height="15" label="pressed"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>					
+				</switches>
+			</Appearance>
+		</ScrollRightButton>
+		
+		<ScrollUpButton width="15" height="15" resizable="false" shrinkable="false" text="">
+			<Pixmap x="18" y="23" width="15" height="15"> 
+				<Texture ref="Default"/>
+			</Pixmap>
+			<Appearance alignment="middle">
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+				<switches clear="true">
+					<PixmapSwitch x="18" y="23" width="15" height="15" label="default"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>
+					<PixmapSwitch x="18" y="83" width="15" height="15" label="mouseHover"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>			
+					<PixmapSwitch x="18" y="38" width="15" height="15" label="pressed"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>			
+				</switches>
+			</Appearance>
+		</ScrollUpButton>
+		
+		<ScrollDownButton width="15" height="15" resizable="false" shrinkable="false" text="">
+			<Pixmap x="33" y="23" width="15" height="15"> 
+				<Texture ref="Default"/>
+			</Pixmap>		
+			<Appearance>
+				<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+				<switches clear="true">
+					<PixmapSwitch x="33" y="23" width="15" height="15" label="default"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>		
+					<PixmapSwitch x="18" y="98" width="15" height="15" label="mouseHover"> 
+						<Texture ref="Default"/>
+					</PixmapSwitch>				
+					<PixmapSwitch x="33" y="38" width="15" height="15" label="pressed">  
+						<Texture ref="Default"/>
+					</PixmapSwitch>			
+				</switches>
+			</Appearance>
+		</ScrollDownButton>
+	</ScrollBar>
+	
+	<List>
+		<Appearance rowHeight="15" alignment="left">
+			<Padding all="2"/>
+			<Border all="2"/>
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>	
+			<BackgroundDecorators>
+				<PlainBackground ref="darkenBackground"/>
+				<PixmapBorder ref="fieldBorder" enabled="true"/> 
+			</BackgroundDecorators>
+			
+			<SelectionUnderlay>
+				<PlainBackground>
+					<Color rgba="155, 155, 255, 130"/>
+				</PlainBackground>				
+			</SelectionUnderlay>
+			
+			<HoverUnderlay>
+				<PlainBackground>
+					<Color rgba="150, 200, 255, 100"/>
+				</PlainBackground>				
+			</HoverUnderlay>
+		</Appearance>
+	</List>
+	
+	<TextEditor>
+		<Appearance alignment="top left">
+			<Margin all="2"/>
+			<Padding all="3"/>
+			<Border all="2"/>
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+					<SelectionColor rgba="0, 0, 0, 255"/>
+					<SelectionBackground>
+						<PlainBackground>
+							<Color rgba="255, 186, 0, 244"/>
+						</PlainBackground>
+					</SelectionBackground>
+				</Style>
+			</TextStyle>	
+
+			<!-- define the cursor to use -->
+			<Cursor x="0" y="100" width="3" height="15">
+				<Texture ref="Default"/>
+			</Cursor>
+			<CursorColor rgba="255, 255, 255, 255"/>
+
+			<!-- define a background -->
+			<BackgroundDecorators>
+				<PlainBackground ref="darkenBackground"/>
+				<PixmapBorder ref="fieldBorder" enabled="true"/>
+			</BackgroundDecorators>
+		</Appearance>
+	</TextEditor>
+	
+	<ProgressBar>
+		<Appearance>
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color rgba="127, 127, 127, 255" />
+				</Style>
+			</TextStyle>	
+			<SelectionUnderlay>
+						<PlainBackground>
+							<Color rgba="255, 255, 255, 255"/>
+						</PlainBackground>
+			</SelectionUnderlay>
+			<Padding all="2"/>
+			<Margin all="2"/>
+			<Border all="1"/>
+			<BackgroundDecorators>
+				<PlainBackground ref="darkenBackground"/>
+			</BackgroundDecorators>
+		</Appearance>
+	</ProgressBar>
+	
+	<ColorBox>
+		<Appearance>
+			<Border all="2"/>
+			<BackgroundDecorators>
+				<PixmapBorder ref="buttonBorder"/>
+			</BackgroundDecorators>
+		</Appearance>
+		
+		<Pixmap x="136" y="101" width="32" height="32"> 
+			<Texture ref="Default"/>
+		</Pixmap>
+	</ColorBox>
+	
+	<ComboBox>
+		<Appearance>
+			<Border all="2"/>
+			<BackgroundDecorators>
+				<PixmapBorder ref="buttonBorder"/>
+			</BackgroundDecorators>
+		</Appearance>
+		
+		<Pixmap x="0" y="23" width="17" height="18"> 
+			<Texture ref="Default"/>
+		</Pixmap>
+	</ComboBox>
+
+	<SplitContainer>
+		<VerticalPixmap x="153" y="12" width="5" height="11"> 
+			<Texture ref="Default"/>
+		</VerticalPixmap>
+		<HorizontalPixmap x="157" y="1" width="11" height="5"> 
+			<Texture ref="Default"/>
+		</HorizontalPixmap>		
+		<Appearance>
+			<BarDecorator>
+				<PlainBackground>
+					<Color value="light gray"/>
+				</PlainBackground>			
+				<PlainBorder>
+					<Color value="gray"/>
+				</PlainBorder>
+			</BarDecorator>
+		</Appearance>
+	</SplitContainer>
+
+   	<SnappingSlider>
+		<SliderPixmap x="2" y="61" width="15" height="16"> 
+			<Texture ref="Default"/>
+		</SliderPixmap>
+	</SnappingSlider>			
+	
+	<VerticalList>
+		<Appearance>
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>		
+		
+			<BackgroundDecorators>
+				<PlainBackground ref="darkenBackground"	/>
+			</BackgroundDecorators>
+		</Appearance>
+	</VerticalList>
+
+	<Menu>
+		<Appearance alignment="left">
+			<Border all="1"/>
+			<Padding right="4" left="4" top="0" bottom="0"/>
+			<Margin all="0"/>
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>	
+			<BackgroundDecorators>
+				<PlainBackground>
+					<Color ref="windowBackgroundColor"/>
+				</PlainBackground>
+				<PlainBorder enabled="true" label="default" all="1" span="border">
+					<Color rgba="233, 217, 198, 255"/>
+				</PlainBorder>
+			</BackgroundDecorators>
+			<HoverUnderlay>
+				<PlainBackground>
+					<Color rgba="150, 200, 255, 100"/>
+				</PlainBackground>
+			</HoverUnderlay>
+			<SelectionColor rgba="255, 0, 0, 255"/>
+			<HoverColor rgba="80, 80, 80, 255"/>
+			<Color ref="textColor"/>
+		</Appearance>
+	</Menu>
+	
+	<Tree>
+		<Appearance alignment="left">
+			<Padding all="2"/>
+
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+
+			<!-- define some special pixmaps (keys are defined by the widget) -->
+			<Pixmap key="PlusIconPixmap" x="6" y="41" width="9" height="9">
+				<Texture ref="Default"/>
+			</Pixmap>
+			<Pixmap key="MinusIconPixmap" x="6" y="51" width="9" height="9">
+				<Texture ref="Default"/>
+			</Pixmap>		
+			<BackgroundDecorators>
+				<PlainBackground ref="darkenBackground"/>
+			</BackgroundDecorators>
+			
+			<SelectionUnderlay>
+				<PlainBackground>
+					<Color rgba="155, 155, 255, 130"/>
+				</PlainBackground>				
+			</SelectionUnderlay>
+			
+			<HoverUnderlay>
+				<PlainBackground>
+					<Color rgba="150, 200, 255, 100"/>
+				</PlainBackground>				
+			</HoverUnderlay>
+		</Appearance>	
+	</Tree>
+
+	<MenuBar>
+		<Appearance>
+			<Border all="1"/>
+			<Padding right="2" left="2" top="0" bottom="0"/>
+			<Margin all="0"/>
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>		
+			<BackgroundDecorators>
+				<PlainBackground>
+					<Color ref="windowBackgroundColor"/>
+				</PlainBackground>
+				<PlainBorder enabled="true" label="default" all="2" span="border">
+					<Color ref="windowBackgroundColor"/>
+				</PlainBorder>
+			</BackgroundDecorators>
+			<SelectionUnderlay>
+				<PlainBackground enabled="false">
+					<Color rgba="255, 255, 255, 130"/>
+				</PlainBackground>
+			</SelectionUnderlay>
+			<HoverUnderlay>
+				<GradientBackground enabled="true">
+					<TopLeftColor rgba="249, 247, 242, 180"/>
+					<TopRightColor rgba="249, 247, 242, 180"/>
+					<BottomLeftColor rgba="233, 217, 198, 180"/>
+					<BottomRightColor rgba="233, 217, 198, 180"/>
+				</GradientBackground>
+			</HoverUnderlay>
+			<SelectionColor rgba="255, 0, 0, 255"/>
+			<HoverColor rgba="50, 0, 0, 255"/>
+			<Color ref="textColor"/>
+		</Appearance>	
+	</MenuBar>
+	
+	<Table>
+		<Appearance alignment="left">
+			<Border all="0"/>
+			<Padding all="2"/>
+			<Margin all="0"/>
+			<!-- define textrenderers -->
+			<DirectTextRenderer ref="defaultSimpleTextRenderer" key="default" />
+
+			<!-- define text styles -->
+			<TextStyle key="default">
+				<Style key="default" fontstyle="default">
+					<Color ref="textColor" />
+				</Style>
+			</TextStyle>
+			<BackgroundDecorators>
+				<PlainBackground ref="darkenBackground"/>
+			</BackgroundDecorators>
+			<SelectionUnderlay>
+				<PlainBackground>
+					<Color rgba="155, 155, 255, 130"/>
+				</PlainBackground>				
+			</SelectionUnderlay>
+			
+			<HoverUnderlay>
+				<PlainBackground>
+					<Color rgba="150, 200, 255, 100"/>
+				</PlainBackground>				
+			</HoverUnderlay>
+		</Appearance>
+	</Table>	
+
+	<Container/>
+	<Canvas/>
+	<TabContainer/>
+	<Canvas/>
+	<ScrollContainer/>
+</FGUI:Theme>
