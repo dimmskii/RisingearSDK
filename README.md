@@ -18,6 +18,9 @@
   - Risingear runs on desktop Java 11. Play on Windows, Linux or MacOS!
 *Android is in the works!*
 
+### YouTube Preview
+[![Short preview of SDK gameplay](https://img.youtube.com/vi/kVi-hnrwKn4/maxresdefault.jpg)](https://www.youtube.com/watch?v=kVi-hnrwKn4)
+
 ### Instructions
 
  - Download the GitHub code as a .zip file
@@ -28,7 +31,7 @@
 ### To Do
  - Android support with GLES renderer implementation
  - SVG support implemented into GUI and perhaps generally graphics (texture?)
- - Hardcore optimization (I.e. LuaJ compiling, persist Lua table lookup workarounds to avoid serious CPU usage, etc.)
+ - Hardcore optimization (I.e. LuaJ compiling, Lua persistence tables lookup workarounds to avoid serious CPU usage, etc.)
  - Server downloads (as of yet, you must test on client and server end by copying the mod directory files yourself)
  - *Much, much more to be posted!*
 
