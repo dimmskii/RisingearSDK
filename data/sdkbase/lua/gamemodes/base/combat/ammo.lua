@@ -7,6 +7,10 @@
 
 ammo = {}
 
+ammo["base"] = {}
+ammo["base"].niceName = "Base" -- TODO: stringadactyl
+ammo["base"].capacity = 69
+
 ammo["12gauge"] = {}
 ammo["12gauge"].niceName = "12ga Buckshot" -- TODO: stringadactyl
 ammo["12gauge"].capacity = 80
