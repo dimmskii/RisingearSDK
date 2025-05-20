@@ -6,7 +6,7 @@
 --	--------------------------------------------------------------	--
 
 
-local def = props.addDefinition("Hanzo Steel", "weapons/melee_hanzo.png", 0.32, 1.50, props.COLLISION_SPRITE, "blade")
+local def = props.addDefinition("Hanzo Steel", "weapons/melee_hanzo.png", 0.32, 1.50, props.COLLISION_SPRITE, "blade", true)
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Allow placement in editor

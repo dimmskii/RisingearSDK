@@ -5,7 +5,7 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
-local def = props.addDefinition("", "items/item_health_s_01.png", 0.30, 0.30, props.COLLISION_BOX, "weapon")
+local def = props.addDefinition("", "items/item_health_s_01.png", 0.30, 0.30, props.COLLISION_BOX, "weapon", true)
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 if CLIENT then

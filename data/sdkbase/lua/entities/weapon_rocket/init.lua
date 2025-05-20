@@ -6,7 +6,7 @@
 --	--------------------------------------------------------------	--
 
 
-local def = props.addDefinition("Rocket Launcher", "weapons/rocket_launcher.png", 0.9, 0.239, geom.rectangle(0,0,0.9,0.239), "weapon") -- props.COLLISION_SPRITE too slow
+local def = props.addDefinition("Rocket Launcher", "weapons/rocket_launcher.png", 0.9, 0.239, geom.rectangle(0,0,0.9,0.239), "weapon", true) -- props.COLLISION_SPRITE too slow
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Allow placement in editor

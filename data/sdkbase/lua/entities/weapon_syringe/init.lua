@@ -6,7 +6,7 @@
 --	--------------------------------------------------------------	--
 
 
-local def = props.addDefinition("Syringe Gun", "weapons/syringe_gun.png", 0.3961, 0.2679, props.COLLISION_SPRITE, "weapon")
+local def = props.addDefinition("Syringe Gun", "weapons/syringe_gun.png", 0.3961, 0.2679, props.COLLISION_SPRITE, "weapon", true)
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Allow placement in editor

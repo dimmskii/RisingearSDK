@@ -5,7 +5,7 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
-local def = props.addDefinition("", "items/ammo_rockets.png", 0.4, 0.295, props.COLLISION_SPRITE, "weapon")
+local def = props.addDefinition("", "items/ammo_rockets.png", 0.4, 0.295, props.COLLISION_SPRITE, "weapon", true)
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Allow placement in editor

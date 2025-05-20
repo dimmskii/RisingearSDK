@@ -6,7 +6,7 @@
 --	--------------------------------------------------------------	--
 
 
-local def = props.addDefinition("Crowbar", "weapons/melee_crowbar.png", 0.35, 1.15, props.COLLISION_SPRITE, "blade")
+local def = props.addDefinition("Crowbar", "weapons/melee_crowbar.png", 0.35, 1.15, props.COLLISION_SPRITE, "blade", true)
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Allow placement in editor

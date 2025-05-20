@@ -5,7 +5,7 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
-local def = props.addDefinition("", "items/ammo_762sov.png", 0.15, 0.09, props.COLLISION_BOX, "weapon")
+local def = props.addDefinition("", "items/ammo_762sov.png", 0.15, 0.09, props.COLLISION_BOX, "weapon", true)
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Allow placement in editor

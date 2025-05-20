@@ -6,7 +6,7 @@
 --	--------------------------------------------------------------	--
 
 
-local def = props.addDefinition("SPAS-12", "weapons/shot_spas12.png", 0.85, 0.236, geom.polygon(geom.vec2(0,0),geom.vec2(0.85,0),geom.vec2(0.1,0.236)), "weapon") -- props.COLLISION_SPRITE too slow
+local def = props.addDefinition("SPAS-12", "weapons/shot_spas12.png", 0.85, 0.236, geom.polygon(geom.vec2(0,0),geom.vec2(0.85,0),geom.vec2(0.1,0.236)), "weapon", true) -- props.COLLISION_SPRITE too slow
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Allow placement in editor

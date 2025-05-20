@@ -26,7 +26,7 @@ end
 
 props.getDefinitions = function() return DEFINITIONS end
 
-props.addDefinition = function(name, texture, width, height, collision, material, onSpawn)
+props.addDefinition = function(name, texture, width, height, collision, material, hideInEditor, onSpawn)
 	local def = {}
 	def.name = name
 	def.texture = texture
@@ -34,6 +34,7 @@ props.addDefinition = function(name, texture, width, height, collision, material
 	def.height = height
 	def.collision = collision
 	def.material = material
+	def.hideInEditor = hideInEditor or false
 	
 	if (onSpawn == nil) then def.onSpawn = function( ent ) end else def.onSpawn = onSpawn end
 	

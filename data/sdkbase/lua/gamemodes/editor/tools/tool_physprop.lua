@@ -95,28 +95,30 @@ if (CLIENT) then
 		
 		-- Add the tool buttons
 		for k, v in pairs(defList) do
-			-- Select the first def if it's nil
-			if (tool.selectedPropDef == nil) then
-				propSelected(v)
+			if v.hideInEditor == false then
+				-- Select the first def if it's nil
+				if (tool.selectedPropDef == nil) then
+					propSelected(v)
+				end
+				
+				-- Create the button for the prop def
+				local button = fgui.createButton(c)
+				local tex = textures.get(v.texture)
+				local w = 1
+				local h = 1
+				if v.width > v.height then
+					h = v.height / v.width
+				elseif v.height > v.width then
+					w = v.width / v.height
+				end
+				local pix = pixmap.fromTexture(tex,0,0,w*24,h*24,w*24,h*24,w*24,h*24)
+				button:setPixmap(pix)
+				button:setMinSize(64,64)
+				button:setSize(64,64)
+				button:setExpandable(false)
+				--button:setShrinkable(false)
+				button:addButtonPressedListener(fgui_listeners.buttonPressed( function() propSelected(v) end ))
 			end
-			
-			-- Create the button for the prop def
-			local button = fgui.createButton(c)
-			local tex = textures.get(v.texture)
-			local w = 1
-			local h = 1
-			if v.width > v.height then
-				h = v.height / v.width
-			elseif v.height > v.width then
-				w = v.width / v.height
-			end
-			local pix = pixmap.fromTexture(tex,0,0,w*24,h*24,w*24,h*24,w*24,h*24)
-			button:setPixmap(pix)
-			button:setMinSize(64,64)
-			button:setSize(64,64)
-			button:setExpandable(false)
-			--button:setShrinkable(false)
-			button:addButtonPressedListener(fgui_listeners.buttonPressed( function() propSelected(v) end ))
 		end
 		
 		c:layout()
