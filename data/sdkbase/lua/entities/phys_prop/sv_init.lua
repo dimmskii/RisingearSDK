@@ -17,8 +17,10 @@ function ENT:sv_initialize()
 	
 	local fixtures = phys.addShapeFixtureToBody(self:getBody(), self.material, self:getStaticOutlineShape(), self)
 	for _,v in pairs(fixtures) do
-		self:applyDefaultFixtureListener( v )
+		self:addAsListenerToFixture( v )
 	end
+	self:updateFixtureList()
+	
 	-- Sound stuff
 	self.soundCount = 0 -- To keep track of how many sounds emitted
 	

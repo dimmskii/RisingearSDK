@@ -191,21 +191,43 @@ local function processCheatGiveMessage(sender, data)
   end
   if not sender.ent then return end
   if not sender.ent.valid then return end
-
+  
   local strClassName = tostring(data:readNext())
+  
+  local tListWeaponClasses = ents.getClasses("weapon_base")
+  local tListPickupClasses = ents.getClasses("pickup")
+  
+  if (strClassName == "all") then
+  	local spawned = {}
+  	for _,v in ipairs(tListPickupClasses) do
+  		local entPickup = ents.create(v.CLASSNAME,false)
+    	entPickup:setPosition(sender.ent:getPosition())
+    	ents.initialize(entPickup)
+    	table.insert(spawned,entPickup)
+    	timer.simple(0.01,function()
+    		for _,v in ipairs(spawned) do
+    			v:onPickedUp(sender.ent)
+    			ents.remove(v)
+    		end
+    	end)
+  	end
+  	return
+  end
   local tClass = ents.getClass(strClassName)
   if tClass == nil then
     print_message("Cannot give item - invalid class name or class does not exist", PRINT_AREA_CONSOLE, sender)
     return
   end
-  if table.hasValue(ents.getClasses("weapon_base"),tClass) then
+  
+  
+  if table.hasValue(tListWeaponClasses,tClass) then
     local entWeapon = ents.create(strClassName,false)
     --entWeapon:setPosition(sender.ent:getPosition())
     ents.initialize(entWeapon)
     sender.ent:dropWeapon()
     sender.ent:pickupWeapon(entWeapon)
     return
-  elseif table.hasValue(ents.getClasses("pickup"),tClass) then
+  elseif table.hasValue(tListPickupClasses,tClass) then
     local entPickup = ents.create(strClassName,false)
     entPickup:setPosition(sender.ent:getPosition())
     ents.initialize(entPickup)

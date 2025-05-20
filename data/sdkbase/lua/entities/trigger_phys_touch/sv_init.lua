@@ -16,14 +16,16 @@ end
 function ENT:postMapLoad()
 	ENT_BASE.postMapLoad( self ) -- Make sure this happens above pairs(self.sourceEnts)
 	
-	local listener = {}
-	listener.beginContact = function(entFixture, otherFixture, contact)
+	local listenerTable = {}
+	listenerTable.beginContact = function(_, entFixture, otherFixture, contact)
 		self:triggerTargets( otherFixture.m_body:getUserData() )
 	end
 	
 	for k,source in pairs(self.sourceEnts) do
 		if ents.isClass(source,"phys_base", true) then
-			source:subscribePhysListener(listener)
+				for k,v in pairs(source.fixtures) do
+					v:addListener(phys.createFixtureListener(listenerTable))
+				end
 		end
 	end
 	

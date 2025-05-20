@@ -18,8 +18,10 @@ function ENT:initialize()
 	self:createBody()
 	local fixtures = phys.addShapeFixtureToBody(self:getBody(), self.material, self.polygon, self)
 	for _,v in pairs(fixtures) do
-		self:applyDefaultFixtureListener( v )
+		self:addAsListenerToFixture( v )
 	end
+	
+	self:updateFixtureList()
 end
 
 function ENT:getStaticOutlineShape()

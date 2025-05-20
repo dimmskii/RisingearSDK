@@ -7,8 +7,8 @@
 
 --local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
-ENT.ammoType = "none"
-ENT.quantity = 0
+ENT.ammoType = "base"
+ENT.quantity = 10
 
 if (CLIENT) then
 	ENT.pickupSound = audio.sound("pickups/pickup_ammo.wav")

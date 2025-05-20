@@ -16,5 +16,5 @@ function ENT:updateMotion( delta )
 --	self.angle = self.angle + self.angleVelocity * delta -- We don't
 end
 
-function ENT:applyDefaultFixtureListener( fixture )
+function ENT:addAsListenerToFixture( fixture )
 end

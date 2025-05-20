@@ -16,11 +16,13 @@ function ENT:sv_initialize()
   self.bodyType = phys.BT_DYNAMIC
   self:createBody()
   self.fixtureTop = phys.addBoxFixtureToBody(self:getBody(), materials.get("flesh"), -0.3, -0.65, 0.6, 0.65, self)
-  self:applyDefaultFixtureListener( self.fixtureTop )
+  self:addAsListenerToFixture( self.fixtureTop )
   self.fixtureMid = phys.addBoxFixtureToBody(self:getBody(), materials.get("flesh"), -0.3, 0, 0.6, 1, self)
-  self:applyDefaultFixtureListener( self.fixtureMid )
+  self:addAsListenerToFixture( self.fixtureMid )
   self.fixtureFeet = phys.addBoxFixtureToBody(self:getBody(), materials.get("character_feet"), -0.25, 1.0, 0.5, 0.1, self)
-  self:applyDefaultFixtureListener( self.fixtureFeet )
+  self:addAsListenerToFixture( self.fixtureFeet )
+  
+  self:updateFixtureList()
   
   self.headContacts = {}
   

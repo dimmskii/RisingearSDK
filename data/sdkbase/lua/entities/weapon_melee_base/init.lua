@@ -13,6 +13,7 @@ ENT.niceName =	"Base Melee Weapon"
 ENT.damage = 10 	--int
 ENT.force = 10000	--float
 ENT.holdType = weapons.HOLDTYPE_MELEE
+ENT.ammoType = "none"
 
 ENT.dismembers = false
 

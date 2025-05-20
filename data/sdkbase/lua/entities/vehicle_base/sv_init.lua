@@ -13,7 +13,7 @@ function ENT:sv_initialize()
 	self:createBody()
 	local fixtures = phys.addShapeFixtureToBody(self:getBody(), self.material, self:getStaticOutlineShape())
 	for _,v in ipairs(fixtures) do
-		self:applyDefaultFixtureListener( v )
+		self:addAsListenerToFixture( v )
 		v:setUserData( self )
 	end
 end

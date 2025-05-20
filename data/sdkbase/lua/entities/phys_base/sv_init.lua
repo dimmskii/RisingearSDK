@@ -14,17 +14,7 @@ function ENT:sv_initialize()
 	self:initProperty("platform", false)
 	self:initProperty("platformConscious", false)
 	
-	self.fixtureListener = phys.createFixtureListener(
-		{
-		beginContact = function(selfFixture, otherFixture, contact)
-			self:beginContact(selfFixture, otherFixture, contact)
-		end,
-		
-		endContact = function(selfFixture, otherFixture, contact)
-			self:endContact(selfFixture, otherFixture, contact)
-		end
-		}
-	)
+	self.fixtureListener = phys.createFixtureListener(self)
 end
 
 local body, physPos, physVel, physAngle, physAngleVel -- to save some timespace
@@ -62,8 +52,8 @@ function ENT:subscribePhysListener(table)
 	self.fixtureListener:subscribeOther( phys.createFixtureListener(table) )
 end
 
-function ENT:applyDefaultFixtureListener( fixture )
-	phys.setFixtureListener( fixture, self.fixtureListener )
+function ENT:addAsListenerToFixture( fixture )
+	fixture:addListener(self.fixtureListener)
 end
 
 local phys_util = include("physutil.lua")

@@ -36,7 +36,7 @@ physragdoll.create = function(skeleton, bMirrored, vecOldVelocity, optCharOwner)
       for k,v in pairs(fixtures) do
         if optCharOwner then
           v:setUserData(optCharOwner)
-          optCharOwner:applyDefaultFixtureListener( v )
+          optCharOwner:addAsListenerToFixture( v )
         end
       end
       --body:setTransform( geom.vec2(spr.position.x, spr.position.y), limb.angle )

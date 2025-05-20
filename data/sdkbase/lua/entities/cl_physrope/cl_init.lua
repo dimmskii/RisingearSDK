@@ -79,7 +79,7 @@ function ENT:destroy()
 end
 
 local listener = phys.createFixtureListener( {
-	beginContact = function(selfFixture, otherFixture, contact)
+	beginContact = function(_, selfFixture, otherFixture, contact)
 	  contact:setEnabled(false)
 	end
 })
@@ -94,7 +94,7 @@ function ENT:createBody()
   for i=1,segNum do
     bod = phys.createBody(self.bodyType,self)
     local fix = phys.addBoxFixtureToBody(bod, self.material, -w/2, 0, w, segLength, self)
-    phys.setFixtureListener( fix, listener )
+    fix:addListener( listener )
     bod:setTransform( geom.vec2(self.position.x, self.position.y + segLength*(i-1)), 0 )
     
     self.bodies[i] = bod

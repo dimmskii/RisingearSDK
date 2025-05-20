@@ -24,6 +24,7 @@ end
 
 function ENT:createPhysSkeleton( skel )
   self.bodies, self.ragdoll = physragdoll.create(skel, self.mirrored, self.velocity, self)
+  self:updateFixtureList()
 end
 
 function ENT:beginContact(selfFixture, otherFixture, contact)

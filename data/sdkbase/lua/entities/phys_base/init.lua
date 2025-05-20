@@ -104,8 +104,16 @@ function ENT:destroy()
 	end
 end
 
-function ENT:clearPhysListeners()
-	self.physListeners = {}
+function ENT:updateFixtureList()
+	local fixtures = {}
+	for k,v in pairs(self.bodies) do
+		local f = v.m_fixtureList
+		while f ~= nil do
+			table.insert(fixtures,f)
+			f=f.m_next
+		end
+	end
+	self.fixtures = fixtures
 end
 
 function ENT:setMaterialID(strMaterialID)

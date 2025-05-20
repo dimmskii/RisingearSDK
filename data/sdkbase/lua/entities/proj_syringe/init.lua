@@ -34,7 +34,7 @@ if SERVER then
 		self:createBody()
 		local fixtures = phys.addShapeFixtureToBody(self:getBody(), self.material, self:getStaticOutlineShape())
 		for _,v in pairs(fixtures) do
-			self:applyDefaultFixtureListener( v )
+			self:addAsListenerToFixture( v )
 		end
 	end
 	
