@@ -305,5 +305,8 @@ function GM:registerCommands()
     cmds.register("noclip", function() sendCheatMessage(CHT_NOCLIP) end)
     cmds.register("notarget", function() sendCheatMessage(CHT_NOTARGET) end)
     cmds.register("give", function(args) sendCheatGiveMessage(args) end)
+    
+    -- CL GUI
+    cmds.register("appearancemenu", function() GAMEMODE:gui_showAppearanceWindow() end)
 	end
 end

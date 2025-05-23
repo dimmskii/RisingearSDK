@@ -94,8 +94,8 @@ function ENT:fire()
 end
 
 function ENT:emitFireSound( vecFrom )
-	if type(self.soundFire)=="string" and string.len(self.soundFire) > 0 then sndeffect.emit( self.soundFire, vecFrom.x, vecFrom.y, 20, 1.0 ) end -- Close sound
-	if type(self.soundDistantFire)=="string" and string.len(self.soundDistantFire) > 0 then sndeffect.emit( self.soundDistantFire, vecFrom.x, vecFrom.y, 100, 0.8 ) end -- Distant sound
+	if type(self.soundFire)=="string" and string.len(self.soundFire) > 0 then sndeffect.emit( self.soundFire, vecFrom.x, vecFrom.y, 50, 1.0 ) end -- Close sound
+	if type(self.soundDistantFire)=="string" and string.len(self.soundDistantFire) > 0 then sndeffect.emit( self.soundDistantFire, vecFrom.x, vecFrom.y, 250, 0.8 ) end -- Distant sound
 end
 
 function ENT:emitEmptySound( vecFrom )

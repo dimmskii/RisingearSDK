@@ -59,7 +59,7 @@ if SERVER then
 		
 		-- Emit sounds
 		sndeffect.emit( "env/explod01c.wav", self.position.x, self.position.y, 20, 1.0 ) -- Close sound
-    sndeffect.emit( "env/explod01d.wav", self.position.x, self.position.y, 100, 0.8 ) -- Distant sound
+    sndeffect.emit( "env/explod01d.wav", self.position.x, self.position.y, 500, 0.8 ) -- Distant sound
     
     self:scanAndDamageTargets()
     

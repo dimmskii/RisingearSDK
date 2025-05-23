@@ -404,6 +404,7 @@ if CLIENT then
 	local function onOkButton()
 		if SERVER then return end -- Servers don't.
 		local data = net.data()
+		GAMEMODE:appearanceToCvars(appearance)
 		data:writeBool(appearance.female)
 		data:writeColor(appearance.skinColor)
 		data:writeString(appearance.hair.id)
@@ -418,6 +419,7 @@ if CLIENT then
 		data:writeString(appearance.bottom.id)
 		data:writeString(appearance.shoes.id)
 		net.sendMessage( MSG_CLIENT_APPLY_APPEARANCE, data )
+		cvars.set("appearance_set",true) -- Never show this again
 		GAMEMODE:gui_hideAppearanceWindow()
 	end
 	
@@ -753,6 +755,42 @@ if CLIENT then
 		skeletonRenderable = nil
 		renderables.remove(fadeRenderable)
 		fadeRenderable = nil
+	end
+	
+	function GM:appearanceToCvars(appearance)
+			
+			cvars.set("appearance_female",appearance.female)
+			cvars.set("appearance_skinColor",appearance.skinColor:toHexString())
+			cvars.set("appearance_hair",appearance.hair.id)
+			cvars.set("appearance_hairColor",appearance.hairColor:toHexString())
+			cvars.set("appearance_facialHair",appearance.facialHair.id)
+			cvars.set("appearance_facialHairColor",appearance.skinColor:toHexString())
+			cvars.set("appearance_eyes",appearance.eyes.id)
+			cvars.set("appearance_eyeColor",appearance.eyeColor:toHexString())
+			cvars.set("appearance_eyebrows",appearance.eyebrows.id)
+			cvars.set("appearance_eyebrowColor",appearance.eyebrowColor:toHexString())
+			
+			cvars.set("appearance_top",appearance.top.id)
+			cvars.set("appearance_bottom",appearance.bottom.id)
+			cvars.set("appearance_shoes",appearance.shoes.id)
+	end
+	
+	function GM:applyAppearanceFromCvars()
+		local data = net.data()
+		data:writeBool(cvars.bool("appearance_female",false))
+		data:writeColor(color.fromHexString(cvars.string("appearance_skinColor","")))
+		data:writeString(cvars.string("appearance_hair",""))
+		data:writeColor(color.fromHexString(cvars.string("appearance_hairColor","")))
+		data:writeString(cvars.string("appearance_facialhair",""))
+		data:writeColor(color.WHITE)
+		data:writeString(cvars.string("appearance_eyebrows",""))
+		data:writeColor(color.WHITE)
+		data:writeString(cvars.string("appearance_eyes",""))
+		data:writeColor(color.fromHexString(cvars.string("appearance_eyeColor","")))
+		data:writeString(cvars.string("appearance_top",""))
+		data:writeString(cvars.string("appearance_bottom",""))
+		data:writeString(cvars.string("appearance_shoes",""))
+		net.sendMessage( MSG_CLIENT_APPLY_APPEARANCE, data )
 	end
 
 end

@@ -108,6 +108,6 @@ end
 function ENT:fire()
 end
 
---function ENT:emitFireSound( vecFrom ) -- Prevent weapon from playing fire sound
---	return
---end
+function ENT:emitFireSound( vecFrom )
+	if type(self.soundFire)=="string" and string.len(self.soundFire) > 0 then sndeffect.emit( self.soundFire, vecFrom.x, vecFrom.y, 15, 1.0 ) end -- Close sound
+end

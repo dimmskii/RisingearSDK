@@ -5,6 +5,7 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT.LAZY_UPDATE_DISTANCE = -1 -- Disable culling on player because meh
 
 if SERVER then
 	function ENT:canPickUp( entPickup ) -- Override of char_base ENT:canPickUp to allow players picking up ammo, health, etc.

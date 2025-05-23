@@ -17,7 +17,13 @@ end
 
 function GM:onJoinGame()
 	GM_BASE.onJoinGame( self )
-	timer.create( 0.9, 1, function() self:gui_showAppearanceWindow() end, true, true )
+	timer.create( 0.9, 1, function()
+			if cvars.bool("appearance_set",false) then
+				self:applyAppearanceFromCvars()
+			else
+				self:gui_showAppearanceWindow()
+			end
+		end, true, true )
 end
 
 function GM:cl_update( delta )

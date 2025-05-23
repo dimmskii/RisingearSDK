@@ -13,6 +13,7 @@ function GM:initialize()
 end
 
 -- Shared includes
+include( "cvars.lua" )
 include( "commands/commands.lua" )
 include( "hud.lua" )
 include( "networking.lua" )
