@@ -5,6 +5,8 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT.LAZY_UPDATE_DISTANCE = -1
+
 function ENT:initialize()
 	-- ----------------------------
 	-- Shared base entity fields --

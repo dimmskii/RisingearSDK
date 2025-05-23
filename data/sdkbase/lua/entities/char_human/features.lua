@@ -55,6 +55,8 @@ end
 -- HAIR --
 
 function ENT:setHair( id )
+
+	HUMAN_FEATURES.removeHair( self.skeleton ) -- Remove first
 	
 	local table = HUMAN_FEATURES.HAIR_LIST_MALE
 	if (self.female) then table = HUMAN_FEATURES.HAIR_LIST_FEMALE end
@@ -124,6 +126,8 @@ end
 -- OCHYAE --
 
 function ENT:setEyes( id )
+
+	HUMAN_FEATURES.removeEyes( self.skeleton ) -- Remove first
 	
 	local table = HUMAN_FEATURES.EYES_LIST_MALE
 	if (self.female) then table = HUMAN_FEATURES.EYES_LIST_FEMALE end
@@ -195,6 +199,8 @@ end
 -- EYEBROWS --
 
 function ENT:setEyebrows( id )
+
+	HUMAN_FEATURES.removeEyebrows( self.skeleton ) -- Remove first
 	
 	local table = HUMAN_FEATURES.EYEBROW_LIST_MALE
 	if (self.female) then table = HUMAN_FEATURES.EYEBROW_LIST_FEMALE end
@@ -262,6 +268,8 @@ end
 -- FACIAL HAIR --
 
 function ENT:setFacialHair( id )
+
+	HUMAN_FEATURES.removeFacialHair( self.skeleton ) -- Remove first
 	
 	local table = HUMAN_FEATURES.FACIAL_HAIR_LIST_MALE
 	if (self.female) then table = HUMAN_FEATURES.FACIAL_HAIR_LIST_FEMALE end

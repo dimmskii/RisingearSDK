@@ -196,6 +196,7 @@ HUMAN_CLOTHES.addTop = function( skeleton, top )
 end
 		
 HUMAN_CLOTHES.removeTop = function( skeleton )
+	local bDetached = false
 	if skeleton then
 		local limbs = {
 			"top_torso_f",
@@ -213,11 +214,11 @@ HUMAN_CLOTHES.removeTop = function( skeleton )
 			local limb = skeleton:getLimb(v)
 			if limb then
 				limb:detatch()
-				return true
+				bDetached = true
 			end
 		end
 	end
-	return false
+	return bDetached
 end
 
 
@@ -396,6 +397,7 @@ HUMAN_CLOTHES.addBottom = function( skeleton, bottom )
 end
 		
 HUMAN_CLOTHES.removeBottom = function( skeleton )
+	local bDetached = false
 	if skeleton then
 		local limbs = {
 			"bottom_torso_f",
@@ -413,11 +415,11 @@ HUMAN_CLOTHES.removeBottom = function( skeleton )
 			local limb = skeleton:getLimb(v)
 			if limb then
 				limb:detatch()
-				return true
+				bDetached = true
 			end
 		end
 	end
-	return false
+	return bDetached
 end
 
 
@@ -517,6 +519,7 @@ HUMAN_CLOTHES.addShoes = function( skeleton, shoes )
 end
 		
 HUMAN_CLOTHES.removeShoes = function( skeleton )
+	local bDetached = false
 	if skeleton then
 		local limbs = {
 			"shoes_footleft_f",
@@ -528,11 +531,11 @@ HUMAN_CLOTHES.removeShoes = function( skeleton )
 			local limb = skeleton:getLimb(v)
 			if limb then
 				limb:detatch()
-				return true
+				bDetached = true
 			end
 		end
 	end
-	return false
+	return bDetached
 end
 
 include("bottom_defaults.lua")

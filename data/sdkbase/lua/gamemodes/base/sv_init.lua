@@ -57,6 +57,11 @@ end
 hook.ensureExists("onWeaponDrop")
 
 function GM:networkTick()
+	-- Update client positions based on their ents
+	for _,v in ipairs(net.getClients()) do
+		if v.ent then net.setClientPosition(v.id, v.ent.position) end
+	end
+
 	-- Call entities' network tick methods
 	for k, v in pairs(ents.getAll()) do
 		if v:isInitialized() and v.networked then

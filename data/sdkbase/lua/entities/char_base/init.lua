@@ -58,6 +58,8 @@ end
 
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
+ENT.LAZY_UPDATE_DISTANCE = 40
+
 ENT.maxHealth = 100
 
 function ENT:initialize()
@@ -232,6 +234,12 @@ function ENT.persist( thisClass )
 				end
 				return angs
 			end,
+			dirty=function(field, ent) -- return dirty true for ragdollAngles only if at least some phys limbs are awake
+				for _,v in ipairs(ent.bodies) do
+					if v:isAwake() then return true end
+				end
+				return false
+			end
 		}, ents.SNAP_NET)
 		
 		ents.persist(thisClass, "ragdollDismem", {

@@ -21,6 +21,8 @@ end
 
 function ENT:setTop( id )
 	if not self.skeleton then return end
+	
+	HUMAN_CLOTHES.removeTop( self.skeleton ) -- Remove first
 
 	local table = HUMAN_CLOTHES.TOP_LIST_MALE
 	if (self.female) then table = HUMAN_CLOTHES.TOP_LIST_FEMALE end
@@ -61,6 +63,8 @@ end
 
 function ENT:setBottom( id )
 	if not self.skeleton then return end
+	
+	HUMAN_CLOTHES.removeBottom( self.skeleton ) -- Remove first
 
 	local table = HUMAN_CLOTHES.BOTTOM_LIST_MALE
 	if (self.female) then table = HUMAN_CLOTHES.BOTTOM_LIST_FEMALE end
@@ -102,6 +106,8 @@ end
 
 function ENT:setShoes( id )
 	if not self.skeleton then return end
+	
+	HUMAN_CLOTHES.removeShoes( self.skeleton ) -- Remove first
 
 	local table = HUMAN_CLOTHES.SHOES_LIST_MALE
 	if (self.female) then table = HUMAN_CLOTHES.SHOES_LIST_FEMALE end

@@ -7,6 +7,8 @@
 
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
+ENT.LAZY_UPDATE_DISTANCE = 50
+
 function ENT:initialize()
 	
 	self.platformConscious = true -- Physics props can fly up from underneath onto platforms
