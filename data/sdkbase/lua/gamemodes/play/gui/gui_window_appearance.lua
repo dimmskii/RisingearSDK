@@ -258,8 +258,14 @@ if CLIENT then
 		for k,v in pairs(hairs) do
 			hairSelection:addItem(k)
 		end
-		hairSelection:setSelectedIndex(0)
-		hairColorSelection:setSelectedIndex(0)
+		
+		for k,v in pairs(hairs) do
+			if v.id==cvars.string("appearance_hair","") then
+				hairSelection:setSelected(v.niceName)
+			end
+		end
+		
+		hairColorSelection:setColor( color.fromHexString(cvars.string("appearance_hairColor","")) or color.fromRGBf(0.27,0.05,0.0) )
 	end
 	
 	local function updateFacialHairSelection()
@@ -283,8 +289,14 @@ if CLIENT then
 		for k,v in pairs(facialHairs) do
 			facialHairSelection:addItem(k)
 		end
-		facialHairSelection:setSelectedIndex(0)
-		facialHairColorSelection:setSelectedIndex(0)
+		
+		for k,v in pairs(facialHairs) do
+			if v.id==cvars.string("appearance_facialhair","") then
+				facialHairSelection:setSelected(v.niceName)
+			end
+		end
+		
+		facialHairColorSelection:setColor( color.fromHexString(cvars.string("appearance_facialhairColor","")) or color.fromRGBf(0.27,0.05,0.0) )
 	end
 	
 	local function updateEyebrowSelection()
@@ -308,8 +320,14 @@ if CLIENT then
 		for k,v in pairs(eyebrows) do
 			eyebrowSelection:addItem(k)
 		end
-		eyebrowSelection:setSelectedIndex(0)
-		eyebrowColorSelection:setSelectedIndex(0)
+		
+		for k,v in pairs(eyebrows) do
+			if v.id==cvars.string("appearance_eyebrows","") then
+				eyebrowSelection:setSelected(v.niceName)
+			end
+		end
+		
+		eyebrowColorSelection:setColor( color.fromHexString(cvars.string("appearance_eyebrowColor","")) or color.fromRGBf(0.08,0.0,0.0) )
 	end
 	
 	local function updateEyeSelection()
@@ -333,8 +351,14 @@ if CLIENT then
 		for k,v in pairs(eyes) do
 			eyeSelection:addItem(k)
 		end
-		eyeSelection:setSelectedIndex(0)
-		eyeColorSelection:setSelectedIndex(0)
+		
+		for k,v in pairs(eyes) do
+			if v.id==cvars.string("appearance_eyes","") then
+				eyeSelection:setSelected(v.niceName)
+			end
+		end
+		
+		eyeColorSelection:setColor( color.fromHexString(cvars.string("appearance_eyeColor","")) or color.fromRGBf(0.09,0.75,0.12) )
 	end
 	
 	local function updateTopSelection()
@@ -485,12 +509,9 @@ if CLIENT then
 			fgui.createLabel(body_pane," ") -- Spacer
 			
 			local skinColorLabel = fgui.createLabel(body_pane,"Skin Color") -- TODO: Stringadactyl
-			skinColorSelection = fgui.createComboBox(body_pane)
-			for k,v in pairs(skinColors) do
-				skinColorSelection:addItem(k)
-			end
-			skinColorSelection:addSelectionChangedListener(fgui_listeners.selectionChanged(function(ev)
-				local col = skinColors[skinColorSelection:getSelectedValue()]
+			skinColorSelection = fgui.createColorBox(body_pane)
+			skinColorSelection:addColorChangedListener(fgui_listeners.colorChanged(function(ev)
+				local col = skinColorSelection:getColor()
 				if col then
 					appearance.skinColor = col
 					showCharacter()
@@ -512,12 +533,9 @@ if CLIENT then
 			end))
 			
 			local hairColorLabel = fgui.createLabel(body_pane,"Hair Color") -- TODO: Stringadactyl
-			hairColorSelection = fgui.createComboBox(body_pane)
-			for k,v in pairs(hairColors) do
-				hairColorSelection:addItem(k)
-			end
-			hairColorSelection:addSelectionChangedListener(fgui_listeners.selectionChanged(function(ev)
-				local col = hairColors[hairColorSelection:getSelectedValue()]
+			hairColorSelection = fgui.createColorBox(body_pane)
+			hairColorSelection:addColorChangedListener(fgui_listeners.colorChanged(function(ev)
+				local col = hairColorSelection:getColor()
 				if col then
 					appearance.hairColor = col
 					showCharacter()
@@ -542,12 +560,9 @@ if CLIENT then
 			end))
 			
 			local facialHairColorLabel = fgui.createLabel(body_pane,"Facial Hair Color") -- TODO: Stringadactyl
-			facialHairColorSelection = fgui.createComboBox(body_pane)
-			for k,v in pairs(hairColors) do
-				facialHairColorSelection:addItem(k)
-			end
-			facialHairColorSelection:addSelectionChangedListener(fgui_listeners.selectionChanged(function(ev)
-				local col = hairColors[facialHairColorSelection:getSelectedValue()]
+			facialHairColorSelection = fgui.createColorBox(body_pane)
+			facialHairColorSelection:addColorChangedListener(fgui_listeners.colorChanged(function(ev)
+				local col = facialHairColorSelection:getColor()
 				if col then
 					appearance.facialHairColor = col
 					showCharacter()
@@ -572,12 +587,9 @@ if CLIENT then
 			end))
 			
 			local eyebrowColorLabel = fgui.createLabel(body_pane,"Eyebrow Color") -- TODO: Stringadactyl
-			eyebrowColorSelection = fgui.createComboBox(body_pane)
-			for k,v in pairs(hairColors) do
-				eyebrowColorSelection:addItem(k)
-			end
-			eyebrowColorSelection:addSelectionChangedListener(fgui_listeners.selectionChanged(function(ev)
-				local col = hairColors[eyebrowColorSelection:getSelectedValue()]
+			eyebrowColorSelection = fgui.createColorBox(body_pane)
+			eyebrowColorSelection:addColorChangedListener(fgui_listeners.colorChanged(function(ev)
+				local col = eyebrowColorSelection:getColor()
 				if col then
 					appearance.eyebrowColor = col
 					showCharacter()
@@ -602,12 +614,9 @@ if CLIENT then
 			end))
 			
 			local eyeColorLabel = fgui.createLabel(body_pane,"Eye Color") -- TODO: Stringadactyl
-			eyeColorSelection = fgui.createComboBox(body_pane)
-			for k,v in pairs(eyeColors) do
-				eyeColorSelection:addItem(k)
-			end
-			eyeColorSelection:addSelectionChangedListener(fgui_listeners.selectionChanged(function(ev)
-				local col = eyeColors[eyeColorSelection:getSelectedValue()]
+			eyeColorSelection = fgui.createColorBox(body_pane)
+			eyeColorSelection:addColorChangedListener(fgui_listeners.colorChanged(function(ev)
+				local col = eyeColorSelection:getColor()
 				if col then
 					appearance.eyeColor = col
 					showCharacter()
@@ -683,8 +692,13 @@ if CLIENT then
 			
 			--window_appearance:addWindowClosedListener(fgui_listeners.windowClosed(function() self:gui_hideAppearanceWindow() end))
 			
-			genderMale:setSelected(true)
-			skinColorSelection:setSelectedIndex(0)
+			genderMale:setSelected(cvars.bool("appearance_female", false) == false)
+			genderFemale:setSelected(cvars.bool("appearance_female", false) == true)
+			skinColorSelection:setColor( color.fromHexString(cvars.string("appearance_skinColor","")) or color.fromRGBf(0.800,0.525,0.164) )
+--			hairColorSelection:setColor( color.fromHexString(cvars.string("appearance_hairColor","")) )
+--			facialHairColorSelection:setColor( color.fromHexString(cvars.string("appearance_facialhairColor","")) )
+--			eyeColorSelection:setColor( color.fromHexString(cvars.string("appearance_eyeColor","")) )
+--			eyebrowColorSelection:setColor( color.fromHexString(cvars.string("appearance_eyebrowColor","")) )
 			
 			local btnOk = fgui.createButton(cont, "OK") -- TODO: Stringadactyl
 			btnOk:addButtonPressedListener(fgui_listeners.buttonPressed(onOkButton))
@@ -734,7 +748,9 @@ if CLIENT then
 			renderables.add(fadeRenderable)
 		end
 		
-		appearanceMenuUpdateTimer = timer.create( updateFreqSeconds, -1, updateMenu, true, true )
+		if appearanceMenuUpdateTimer == nil then -- Check nil to not infinitely create update timers
+			appearanceMenuUpdateTimer = timer.create( updateFreqSeconds, -1, updateMenu, true, true )
+		end
 	end
 	
 	function GM:gui_getAppearanceWindow()
@@ -764,7 +780,7 @@ if CLIENT then
 			cvars.set("appearance_hair",appearance.hair.id)
 			cvars.set("appearance_hairColor",appearance.hairColor:toHexString())
 			cvars.set("appearance_facialHair",appearance.facialHair.id)
-			cvars.set("appearance_facialHairColor",appearance.skinColor:toHexString())
+			cvars.set("appearance_facialHairColor",appearance.facialHairColor:toHexString())
 			cvars.set("appearance_eyes",appearance.eyes.id)
 			cvars.set("appearance_eyeColor",appearance.eyeColor:toHexString())
 			cvars.set("appearance_eyebrows",appearance.eyebrows.id)
@@ -782,9 +798,9 @@ if CLIENT then
 		data:writeString(cvars.string("appearance_hair",""))
 		data:writeColor(color.fromHexString(cvars.string("appearance_hairColor","")))
 		data:writeString(cvars.string("appearance_facialhair",""))
-		data:writeColor(color.WHITE)
+		data:writeColor(color.fromHexString(cvars.string("appearance_facialHairColor","")))
 		data:writeString(cvars.string("appearance_eyebrows",""))
-		data:writeColor(color.WHITE)
+		data:writeColor(color.fromHexString(cvars.string("appearance_eyebrowColor","")))
 		data:writeString(cvars.string("appearance_eyes",""))
 		data:writeColor(color.fromHexString(cvars.string("appearance_eyeColor","")))
 		data:writeString(cvars.string("appearance_top",""))

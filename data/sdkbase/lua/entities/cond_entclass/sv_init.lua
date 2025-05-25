@@ -11,7 +11,7 @@ local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 function ENT:onTriggered( source, caller)
 
 	if ents.isClass(source, self.sourceClass, self.allowSubclass) ~= self.notEq then
-		self:triggerTargets( self )
+		self:triggerTargets( source )
 	end
 	
 end
