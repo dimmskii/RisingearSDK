@@ -379,7 +379,14 @@ if CLIENT then
 		for k,v in pairs(tops) do
 			topSelection:addItem(k)
 		end
-		topSelection:setSelectedIndex(0)
+		
+		for k,v in pairs(tops) do
+			if v.id==cvars.string("appearance_top","") then
+				topSelection:setSelected(v.niceName)
+			end
+		end
+		
+		--topSelection:setSelectedIndex(0)
 	end
 	
 	local function updateBottomSelection()
@@ -400,7 +407,14 @@ if CLIENT then
 		for k,v in pairs(bottoms) do
 			bottomSelection:addItem(k)
 		end
-		bottomSelection:setSelectedIndex(0)
+		
+		for k,v in pairs(bottoms) do
+			if v.id==cvars.string("appearance_bottom","") then
+				bottomSelection:setSelected(v.niceName)
+			end
+		end
+		
+		--bottomSelection:setSelectedIndex(0)
 	end
 	
 	local function updateShoesSelection()
@@ -421,7 +435,14 @@ if CLIENT then
 		for k,v in pairs(shoes) do
 			shoesSelection:addItem(k)
 		end
-		shoesSelection:setSelectedIndex(0)
+		
+		for k,v in pairs(shoes) do
+			if v.id==cvars.string("appearance_shoes","") then
+				shoesSelection:setSelected(v.niceName)
+			end
+		end
+		
+		--shoesSelection:setSelectedIndex(0)
 	end
 	
 	-- Callback for when the apply button is pressed

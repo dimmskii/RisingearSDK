@@ -27,7 +27,11 @@ function ENT:doFiredEffects()
 		-- Create dynamic light client ent for muzzleflash
 		local dlight = ents.create("cl_dlight",false)
 		dlight.color = muzzleFlashCol
-		dlight.position = self.equipped:getMuzzlePos():clone()
+		if self.equipped then
+			dlight.position = self.equipped:getMuzzlePos():clone()
+		else
+			dlight.position = self.position:clone()
+		end
 		dlight.radius = 25
 		dlight.lifeTime = 0.12
 		ents.initialize(dlight)

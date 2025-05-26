@@ -33,13 +33,13 @@ local mohawk = HUMAN_FEATURES.createHair()
 mohawk.niceName = "Mohawk"	-- TODO: Stringadactyl
 mohawk.createLimb = function()
 	local spr = sprites.create()
-	spr.width = 0.540
+	spr.width = 0.528
 	spr.height = 0.4342
 	spr:addTexture("characters/male/hair/mohawk.png")
 	local limb = skeletal.createLimb("hair",spr)
 	limb.offset.x = 0
 	limb.offset.y = 0
-	limb.origin.x = 0.270
+	limb.origin.x = 0.260
 	limb.origin.y = 0.4342
 	limb.behindParent = false
 	limb.flipBehindParent = false
