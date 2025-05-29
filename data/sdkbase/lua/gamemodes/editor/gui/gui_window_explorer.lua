@@ -20,6 +20,8 @@ if (CLIENT) then
 	
 	local explorer_list = nil
 	
+	local explorer_list_ents = {}
+	
 	local function actionCallback( action )
 		EDITOR.gui_updateExplorerList( )
 	end
@@ -29,30 +31,31 @@ if (CLIENT) then
 	-- Global function to update the entity explorer
 	function EDITOR.gui_updateExplorerList( )
 		if not explorer_list then return end
-		explorer_list:clear()
-		-- Update
-		 local allEnts = ents.getAll()
-		 local allEntsSorted = {}
-		 for k,v in pairs(allEnts) do
-		  table.insert(allEntsSorted,v)
-		 end
-		 table.sort(allEntsSorted,function(ent1,ent2)
-		  return ent1.id < ent2.id
-		 end)
-		 for _,ent in ipairs(allEntsSorted) do
-		  local tag = ent:getTag() or ""
-		  local item = explorer_list:addItem(string.format("%5d | %s | %s", ent.id, ent.CLASSNAME, tag))
-		  item:setData(ent)
-		  if ent:editor_isHidden() then
-        item:setPixmap(hidden16,explorer_list:getAppearance())
-      else
-        item:setPixmap(visible16,explorer_list:getAppearance())
-      end
-		  if table.hasValue(tools.selectedEnts,ent) then
-		    item:setSelected(true)
-		  end
-		 end
-	 end
+		
+		explorer_list_ents = {}
+		
+		local allEnts = ents.getAll()
+		for k,v in pairs(allEnts) do
+			if v.id == 0 then
+				table.insert(explorer_list_ents,1,v)
+			else
+				table.insert(explorer_list_ents, v)
+			end
+		end
+		
+		explorer_list:updateFromModel()
+		explorer_list:setNumberOfSelectableRows(table.count(explorer_list_ents))
+		
+		local model = explorer_list:getModel()
+		local n = table.getn(explorer_list_ents)
+		for i=0,n-1 do
+			explorer_list:setSelected(i, false)
+			local ent = explorer_list_ents[i+1]
+			if table.hasValue(tools.selectedEnts,ent) then
+				explorer_list:setSelected(i, true)
+			end
+		end
+	end
 	
 	-- Callback for when the apply button is pressed
 	local function applyButton()
@@ -69,22 +72,40 @@ if (CLIENT) then
 			
 			local scroll = fgui.createScrollContainer(cont)
 			scroll:getAppearance():add(fgui_decorators.createTitledBorder("id - CLASSNAME - tag")) -- TODO Stringadactyl
-			explorer_list = fgui.createList(scroll, fgui.SELECTION_MULTIPLE)
 			
-			explorer_list:getToggableWidgetGroup():addSelectionChangedListener(fgui_listeners.selectionChanged(function(selectionChangedEvent)
-			   local ent = selectionChangedEvent:getToggableWidget():getData()
-			   local tSelectedEnts = tools.selectedEnts
-			   if (selectionChangedEvent:isSelected()) then
-			     table.insert(tSelectedEnts, ent)
-			   else
-			     for k,v in pairs(tSelectedEnts) do
-			       if v==ent then
-			         table.remove(tSelectedEnts,k)
-			       end
-			     end
-			   end
-			   tools.setSelection(tSelectedEnts)
-			end))
+			explorer_list = fgui.createTable(scroll)
+			explorer_list:setModel(fgui.newTableModel({
+				getColumnName = function(iCol)
+					if iCol == 0 then
+						return "ID" -- TODO Stringadactyl
+					elseif iCol == 1 then
+						return "Class Name" -- TODO Stringadactyl
+					else
+						return "Tag" -- TODO Stringadactyl
+					end
+				end,
+				getColumnCount = function()
+					return 3
+				end,
+				getRowCount = function()
+					return table.count(explorer_list_ents)
+				end,
+				getItem = function(iCol, iRow, labelAppearance)
+					local ent = explorer_list_ents[iRow+1]
+					if iCol == 0 then
+						return fgui.newItem(labelAppearance, tostring(ent.id))
+					elseif iCol == 1 then
+						return fgui.newItem(labelAppearance, tostring(ent.CLASSNAME))
+					else
+						return fgui.newItem(labelAppearance, tostring(ent.tag))
+					end
+				end
+			
+			}))
+			explorer_list:setColumnWidthPercent(0, 15)
+			explorer_list:setColumnWidthPercent(1, 45)
+			explorer_list:setColumnWidthPercent(2, 40)
+			explorer_list:updateFromModel()
 			
 			window_explorer:addWindowClosedListener(fgui_listeners.windowClosed(EDITOR.gui_hideExplorerWindow))
 			

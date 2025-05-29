@@ -24,7 +24,6 @@ if (CLIENT) then
 		local bodyTypeField = fgui.createComboBox(bodyTypeCont)
 		for k,v in pairs(bodyTypes) do
 			bodyTypeField:addItem(k)
-			print(k)
 		end
 		
 		bodyTypeField:setSelected( self.bodyType )

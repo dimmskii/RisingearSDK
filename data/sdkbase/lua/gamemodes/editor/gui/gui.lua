@@ -187,6 +187,7 @@ if (CLIENT) then
 	end
 	
 	-- CS include after
+	include("cl_gui_window_anim.lua")
 	include("cl_gui_window_editing.lua")
 	include("cl_gui_window_textures.lua")
 	include("cl_gui_cmds.lua")
