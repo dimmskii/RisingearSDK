@@ -22,6 +22,8 @@ if (CLIENT) then
 	
 	local explorer_list_ents = {}
 	
+	local supressSelectionChangedEvent = false -- Used to avoid infinite call loop when we update the entity table widget from model
+	
 	local function actionCallback( action )
 		EDITOR.gui_updateExplorerList( )
 	end
@@ -31,6 +33,8 @@ if (CLIENT) then
 	-- Global function to update the entity explorer
 	function EDITOR.gui_updateExplorerList( )
 		if not explorer_list then return end
+		
+		supressSelectionChangedEvent = true
 		
 		explorer_list_ents = {}
 		
@@ -45,16 +49,18 @@ if (CLIENT) then
 		
 		explorer_list:updateFromModel()
 		explorer_list:setNumberOfSelectableRows(table.count(explorer_list_ents))
+		explorer_list:clearSelection()
 		
 		local model = explorer_list:getModel()
 		local n = table.getn(explorer_list_ents)
 		for i=0,n-1 do
-			explorer_list:setSelected(i, false)
 			local ent = explorer_list_ents[i+1]
 			if table.hasValue(tools.selectedEnts,ent) then
 				explorer_list:setSelected(i, true)
 			end
 		end
+		
+		supressSelectionChangedEvent = false
 	end
 	
 	-- Callback for when the apply button is pressed
@@ -70,10 +76,12 @@ if (CLIENT) then
 			local cont = window_explorer:getContentContainer()
 			cont:setLayoutManager(fgui.newRowLayout())
 			
-			local scroll = fgui.createScrollContainer(cont)
-			scroll:getAppearance():add(fgui_decorators.createTitledBorder("id - CLASSNAME - tag")) -- TODO Stringadactyl
+--			local scroll = fgui.createScrollContainer(cont)
+--			scroll:getAppearance():add(fgui_decorators.createTitledBorder("id - CLASSNAME - tag")) -- TODO Stringadactyl
 			
-			explorer_list = fgui.createTable(scroll)
+--			explorer_list = fgui.createTable(scroll)
+			local table_container = fgui.createTableContainer(cont)
+			explorer_list = table_container:getTable()
 			explorer_list:setModel(fgui.newTableModel({
 				getColumnName = function(iCol)
 					if iCol == 0 then
@@ -92,13 +100,16 @@ if (CLIENT) then
 				end,
 				getItem = function(iCol, iRow, labelAppearance)
 					local ent = explorer_list_ents[iRow+1]
+					local item
 					if iCol == 0 then
-						return fgui.newItem(labelAppearance, tostring(ent.id))
+						item = fgui.newItem(labelAppearance, tostring(ent.id))
 					elseif iCol == 1 then
-						return fgui.newItem(labelAppearance, tostring(ent.CLASSNAME))
+						item = fgui.newItem(labelAppearance, tostring(ent.CLASSNAME))
 					else
-						return fgui.newItem(labelAppearance, tostring(ent.tag))
+						item = fgui.newItem(labelAppearance, tostring(ent.tag))
 					end
+					item:setData(ent)
+					return item
 				end
 			
 			}))
@@ -106,6 +117,27 @@ if (CLIENT) then
 			explorer_list:setColumnWidthPercent(1, 45)
 			explorer_list:setColumnWidthPercent(2, 40)
 			explorer_list:updateFromModel()
+			
+			explorer_list:addSelectionChangedListener(fgui_listeners.selectionChanged(function(selectionChangedEvent)
+				if supressSelectionChangedEvent then return end
+				local ent = selectionChangedEvent:getToggableWidget():getItem(0):getData()
+				local tSelectedEnts = tools.selectedEnts
+				if selectionChangedEvent:isSelected() then
+					for k,v in pairs(tSelectedEnts) do
+						if v==ent then
+							return -- Already contains so return
+						end
+					end
+					table.insert(tSelectedEnts, ent)
+				else
+					for k,v in pairs(tSelectedEnts) do
+						if v==ent then
+							table.remove(tSelectedEnts,k)
+						end
+					end
+				end
+				tools.setSelection(tSelectedEnts)
+			end))
 			
 			window_explorer:addWindowClosedListener(fgui_listeners.windowClosed(EDITOR.gui_hideExplorerWindow))
 			
