@@ -83,7 +83,7 @@ if (CLIENT) then
 			local table_container = fgui.createTableContainer(cont)
 			explorer_list = table_container:getTable()
 			explorer_list:setModel(fgui.newTableModel({
-				getColumnName = function(iCol)
+				getColumnHeader = function(iCol, labelAppearance)
 					if iCol == 0 then
 						return "ID" -- TODO Stringadactyl
 					elseif iCol == 1 then
