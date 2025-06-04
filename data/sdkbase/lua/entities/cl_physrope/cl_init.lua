@@ -89,19 +89,24 @@ function ENT:createBody()
   local segLength = self.segmentLength + (self.length-segNum*self.segmentLength)/segNum
   local bod, jointDef
   
+  local segVec = geom.vec2(0, segLength)
+  segVec:setTheta(self.endPosition:sub(self.position):getTheta())
+  local theta = segVec:getTheta()
+  
   local w = self.width
-  segNum = math.floor(segNum * 0.75)
+  segNum = math.floor(segNum*0.8)
   for i=1,segNum do
     bod = phys.createBody(self.bodyType,self)
     local fix = phys.addBoxFixtureToBody(bod, self.material, -w/2, 0, w, segLength, self)
     fix:addListener( listener )
-    bod:setTransform( geom.vec2(self.position.x, self.position.y + segLength*(i-1)), 0 )
+    bod:setTransform( self.position:add(segVec:mul((i-1))), math.rad(theta + 180) )
+    bod:setGravityScale(0)
     
     self.bodies[i] = bod
     
     if i>1 then
       jointDef = phys.newRevoluteJointDef()
-      jointDef:initialize(self.bodies[i-1], bod, geom.vec2(self.position.x,self.position.y+segLength*(i-1)))
+      jointDef:initialize(self.bodies[i-1], bod, self.position:add(segVec:mul((i-1))))
       jointDef.localAnchorA = geom.vec2(0,segLength)
       phys.getWorld():createJoint(jointDef)
     end
