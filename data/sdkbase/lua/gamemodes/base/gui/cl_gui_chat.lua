@@ -5,12 +5,13 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
-
+-- Widgets
 local container_chat = nil
 local textView = nil
 local messageBox = nil
 local scroll = nil
 
+-- Fonts and styles
 local nameColor = color.YELLOW
 local plainColor = color.WHITE
 local chatFont = nil

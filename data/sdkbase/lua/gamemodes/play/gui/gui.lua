@@ -10,9 +10,20 @@ local GM_BASE = gamemode.getClass(GM.CLASSNAME_BASE)
 
 if (CLIENT) then
 	
+	-- Include CS
+	include("cl_gui_scores.lua")
+	
 	function GM:fgui_initialize()
 		GM_BASE.fgui_initialize( self )
+		gui_scores.initialize()
 	end
+	
+
+	function GM:fgui_destroy()
+		GM_BASE.fgui_destroy( self )
+		gui_scores.destroy()
+	end
+	
 
 end
 

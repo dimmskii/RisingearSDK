@@ -308,5 +308,7 @@ function GM:registerCommands()
     
     -- CL GUI
     cmds.register("appearancemenu", function() GAMEMODE:gui_showAppearanceWindow() end)
+    cmds.register("+showscores", function() gui_scores.show() end)	-- TODO: Maybe consider either consolidating everything to random global tables like gui_scores or call to extensible gamemode class function like above "appearancemenu"? **** or get off the pot.
+    cmds.register("-showscores", function() gui_scores.hide() end)	-- TODO: Maybe consider either consolidating everything to random global tables like gui_scores or call to extensible gamemode class function like above "appearancemenu"? **** or get off the pot.
 	end
 end
