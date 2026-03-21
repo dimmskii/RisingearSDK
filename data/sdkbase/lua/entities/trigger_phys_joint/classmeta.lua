@@ -6,4 +6,4 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "trigger_base"
+ENT_META.CLASSNAME_BASE = "trigger_base"

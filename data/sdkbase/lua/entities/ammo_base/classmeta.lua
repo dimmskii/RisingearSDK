@@ -6,4 +6,4 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "pickup"
+ENT_META.CLASSNAME_BASE = "pickup"

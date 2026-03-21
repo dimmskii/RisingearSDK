@@ -5,6 +5,8 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "trigger_base"
+
 if CLIENT then
 	include("cl_init.lua")
 end

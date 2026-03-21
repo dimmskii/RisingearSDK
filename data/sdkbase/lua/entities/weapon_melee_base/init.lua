@@ -5,6 +5,7 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "weapon_base"
 
 local def = props.addDefinition("Hanzo Steel", "weapons/melee_hanzo.png", 0.32, 1.50, props.COLLISION_SPRITE, "blade", true)
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)

@@ -6,5 +6,4 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "base"
-
+ENT_META.CLASSNAME_BASE = "base"

@@ -5,6 +5,8 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "phys_base"
+
 if SERVER then
 	include("sv_init.lua")
 end

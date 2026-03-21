@@ -117,7 +117,8 @@ if (CLIENT) then
 				button:setSize(64,64)
 				button:setExpandable(false)
 				--button:setShrinkable(false)
-				button:addButtonPressedListener(fgui_listeners.buttonPressed( function() propSelected(v) end ))
+				local temp = v		-- TODO: LUAJC PROBLEM?
+				button:addButtonPressedListener(fgui_listeners.buttonPressed( function() propSelected(temp) end ))
 			end
 		end
 		

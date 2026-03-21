@@ -24,10 +24,12 @@ end
 function GM:getWorldspawnEntity()
 		local tEnts = ents.getAll()
 		for k,v in pairs(tEnts) do
-			if v.CLASSNAME == "worldspawn" then
+			local temp = v -- ?
+			if temp.CLASSNAME == "worldspawn" then
 				return v
 			end
 		end
+		return nil		-- TODO: LUAJC PROBLEM? This needs to be here otherwise function always returns NONE no matter what...
 end
 
 function GM:messageMode( messageMode )

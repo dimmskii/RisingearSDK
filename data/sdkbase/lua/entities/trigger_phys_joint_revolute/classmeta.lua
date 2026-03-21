@@ -6,4 +6,4 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "trigger_phys_joint"
+ENT_META.CLASSNAME_BASE = "trigger_phys_joint"

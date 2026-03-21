@@ -85,15 +85,19 @@ if (CLIENT) then
 			explorer_list:setModel(fgui.newTableModel({
 				getColumnHeader = function(iCol, labelAppearance)
 					if iCol == 0 then
-						return "ID" -- TODO Stringadactyl
+						local item = fgui.newItem(labelAppearance, " "); -- No text
+						item:setPixmap(visible16, labelAppearance); -- Only locked icon
+						return item
 					elseif iCol == 1 then
+						return "ID" -- TODO Stringadactyl
+					elseif iCol == 2 then
 						return "Class Name" -- TODO Stringadactyl
 					else
 						return "Tag" -- TODO Stringadactyl
 					end
 				end,
 				getColumnCount = function()
-					return 3
+					return 4
 				end,
 				getRowCount = function()
 					return table.count(explorer_list_ents)
@@ -102,8 +106,15 @@ if (CLIENT) then
 					local ent = explorer_list_ents[iRow+1]
 					local item
 					if iCol == 0 then
-						item = fgui.newItem(labelAppearance, tostring(ent.id))
+						item = fgui.newItem(labelAppearance, " "); -- No text
+						if ent:editor_isHidden() then
+							item:setPixmap(hidden16, labelAppearance); -- Only locked icon
+						else
+							item:setPixmap(visible16, labelAppearance); -- Only locked icon
+						end
 					elseif iCol == 1 then
+						item = fgui.newItem(labelAppearance, tostring(ent.id))
+					elseif iCol == 2 then
 						item = fgui.newItem(labelAppearance, tostring(ent.CLASSNAME))
 					else
 						item = fgui.newItem(labelAppearance, tostring(ent.tag))
@@ -114,8 +125,9 @@ if (CLIENT) then
 			
 			}))
 			explorer_list:setColumnWidthPercent(0, 15)
-			explorer_list:setColumnWidthPercent(1, 45)
+			explorer_list:setColumnWidthPercent(1, 15)
 			explorer_list:setColumnWidthPercent(2, 40)
+			explorer_list:setColumnWidthPercent(3, 35)
 			explorer_list:updateFromModel()
 			
 			explorer_list:addSelectionChangedListener(fgui_listeners.selectionChanged(function(selectionChangedEvent)

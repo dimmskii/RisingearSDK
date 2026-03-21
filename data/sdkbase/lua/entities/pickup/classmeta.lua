@@ -6,4 +6,4 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "phys_prop"
+ENT_META.CLASSNAME_BASE = "phys_prop"

@@ -5,6 +5,7 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "trigger_base"
 
 if ( SERVER ) then
 	include("sv_init.lua")

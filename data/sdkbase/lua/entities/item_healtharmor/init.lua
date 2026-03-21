@@ -5,6 +5,8 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "pickup"
+
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 ENT.amountArmor = 0

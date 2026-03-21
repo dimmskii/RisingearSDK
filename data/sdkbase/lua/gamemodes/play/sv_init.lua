@@ -108,9 +108,10 @@ function GM:onCharacterKilled( entCharacter, entAttacker, entDamager )
 	for k,client in pairs(net.getClients()) do
 		if(client.ent == entCharacter) then
 			client.alive = false
+			local temp = client-- TODO: LUAJC PROBLEM?
 			timer.simple( 6, function()
 				ents.remove( entCharacter )
-				self:spawnPlayer( client )
+				self:spawnPlayer( temp ) -- TODO: LUAJC PROBLEM? Can't pass in client from loop statement here directly. Gotta set it to dreet temporarily. REPORT THIS ABOUT LUAJC COMPILER MAYBE? 
 			end )
 		end
 	end

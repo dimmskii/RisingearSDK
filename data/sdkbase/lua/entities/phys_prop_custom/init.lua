@@ -5,6 +5,8 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "phys_prop"
+
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 -- Just like a phys_prop but it saves the sprite and adds editor customization in properties at the expense of network and disk space

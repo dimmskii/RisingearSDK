@@ -5,3 +5,5 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+GM_META.CLASSNAME_BASE = nil			-- Baseclass
+GM_META.FGUI_HIDE = true					-- Whether or not to hide in main menu create server window (default behavior is false)

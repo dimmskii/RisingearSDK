@@ -6,4 +6,5 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "base"
+GM_META.CLASSNAME_BASE = "base"		-- Baseclass
+GM_META.FGUI_HIDE = false					-- Whether or not to hide in main menu create server window (default behavior is false)

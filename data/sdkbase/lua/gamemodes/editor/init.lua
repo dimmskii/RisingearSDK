@@ -33,9 +33,9 @@ include( "actions.lua" )
 if ( SERVER ) then -- Time to include server-only lua
 	include( "sv_init.lua" )
 elseif ( CLIENT ) then -- Time to include client-only lua
+	include( "cl_editor_cam.lua" )		-- TODO: LUAJC PROBLEM? Moved before cl_init.lua and its init func controller listeners only work when added outside of cl_init.lua GM:Initialize()
+	include( "cl_editor_keys.lua" )		-- TODO: LUAJC PROBLEM? Moved before cl_init.lua and its init func controller listeners only work when added outside of cl_init.lua GM:Initialize()
 	include( "cl_init.lua" )
-	include( "cl_editor_keys.lua" )
-	include( "cl_editor_cam.lua" )
 	include( "cl_grid.lua" )
 	include( "cl_ent_draw.lua" )
 end

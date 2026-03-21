@@ -5,6 +5,7 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "base"
 
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 

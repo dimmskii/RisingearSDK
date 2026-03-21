@@ -17,8 +17,6 @@ local GM_BASE = gamemode.getClass(GM.CLASSNAME_BASE)
 
 function GM:cl_initialize()
 	GM_BASE.cl_initialize( self )
-	editor_cam.initialize()
-	editor_keys.initialize()
 end
 
 function GM:cl_update( delta )
@@ -27,3 +25,7 @@ function GM:cl_update( delta )
 	-- Update tools
 	tools.update( delta )
 end
+
+	
+	editor_cam.initialize()	-- TODO: LUAJC PROBLEM? 		-- TODO: LUAJC PROBLEM? Moved before cl_init.lua and its init func controller listeners only work when added outside of cl_init.lua GM:Initialize()
+	editor_keys.initialize()	-- TODO: LUAJC PROBLEM? 		-- TODO: LUAJC PROBLEM? Moved before cl_init.lua and its init func controller listeners only work when added outside of cl_init.lua GM:Initialize()

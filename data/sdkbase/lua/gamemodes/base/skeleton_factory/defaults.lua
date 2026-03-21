@@ -7,6 +7,7 @@
 
 
 include("human/human.lua")
+include("monsters.lua")
 
 -- start default quadpeds n stuff here
 

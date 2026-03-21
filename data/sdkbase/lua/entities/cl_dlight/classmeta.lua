@@ -6,4 +6,9 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "base"
+ENT_META.CLASSNAME_BASE = "base"
+
+
+--print("asdasdasd")
+
+--dfoighjdf = rass + 4

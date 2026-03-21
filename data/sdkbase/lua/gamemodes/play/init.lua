@@ -5,7 +5,6 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
-
 local GM_BASE = gamemode.getClass(GM.CLASSNAME_BASE)
 
 function GM:initialize()

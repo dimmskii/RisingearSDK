@@ -11,15 +11,20 @@ local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 ENT.useRange = 2.0 -- maximum distance character can trigger usable items in meters
 ENT.jumpForce = 6
 
+-- BBox for 'alive' jbox bodies
+ENT.bbox_top = geom.rectangle(-0.3, -0.65, 0.6, 0.65)
+ENT.bbox_mid = geom.rectangle(-0.3, 0, 0.6, 1)
+ENT.bbox_feet = geom.rectangle(-0.25, 1.0, 0.5, 0.1)
+
 function ENT:sv_initialize()
   ENT_BASE.sv_initialize( self )
   self.bodyType = phys.BT_DYNAMIC
   self:createBody()
-  self.fixtureTop = phys.addBoxFixtureToBody(self:getBody(), materials.get("flesh"), -0.3, -0.65, 0.6, 0.65, self)
+  self.fixtureTop = phys.addBoxFixtureToBody(self:getBody(), materials.get("flesh"), self.bbox_top:getX(),self.bbox_top:getY(),self.bbox_top:getWidth(),self.bbox_top:getHeight(), self)
   self:addAsListenerToFixture( self.fixtureTop )
-  self.fixtureMid = phys.addBoxFixtureToBody(self:getBody(), materials.get("flesh"), -0.3, 0, 0.6, 1, self)
+  self.fixtureMid = phys.addBoxFixtureToBody(self:getBody(), materials.get("flesh"), self.bbox_mid:getX(),self.bbox_mid:getY(),self.bbox_mid:getWidth(),self.bbox_mid:getHeight(), self)
   self:addAsListenerToFixture( self.fixtureMid )
-  self.fixtureFeet = phys.addBoxFixtureToBody(self:getBody(), materials.get("character_feet"), -0.25, 1.0, 0.5, 0.1, self)
+  self.fixtureFeet = phys.addBoxFixtureToBody(self:getBody(), materials.get("character_feet"), self.bbox_feet:getX(),self.bbox_feet:getY(),self.bbox_feet:getWidth(),self.bbox_feet:getHeight(), self)
   self:addAsListenerToFixture( self.fixtureFeet )
   
   self:updateFixtureList()

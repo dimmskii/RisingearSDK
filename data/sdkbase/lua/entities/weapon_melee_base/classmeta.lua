@@ -6,4 +6,4 @@
 --	--------------------------------------------------------------	--
 
 
-CLASSNAME_BASE = "weapon_base"
+ENT_META.CLASSNAME_BASE = "weapon_base"

@@ -5,6 +5,8 @@
 --	DO NOT REDISTRIBUTE THIS FILE WITHOUT PERMISSION FROM AUTHOR	--
 --	--------------------------------------------------------------	--
 
+ENT_META.CLASSNAME_BASE = "phys_base"
+
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
 ENT.LAZY_UPDATE_DISTANCE = 50
