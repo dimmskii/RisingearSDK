@@ -31,7 +31,7 @@
 ### To Do
  - Android support with GLES renderer implementation
  - SVG support implemented into GUI and perhaps generally graphics (texture?)
- - Hardcore optimization (I.e. LuaJ compiling, Lua persistence tables lookup workarounds to avoid serious CPU usage, etc.)
+ - Optimize Lua things called/indexed constantly that were set by ents.persist (especially SNAP_NET dirty checks, reads and writes)
  - Server downloads (as of yet, you must test on client and server end by copying the mod directory files yourself)
  - *Much, much more to be posted!*
 
