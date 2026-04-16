@@ -34,7 +34,7 @@ function ENT.persist( thisClass )
       read=function(data, ent)
         return data:readNext()
       end,
-      dirty=function(field, ent) return false end
+      dirty=false
     }, ents.SNAP_ALL)
   
 end

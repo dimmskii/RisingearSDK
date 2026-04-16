@@ -88,7 +88,7 @@ elseif SERVER then
 	end
 	function ENT:editor_applyPolygon( polygon )
 		self.polygon = polygon:transform(geom.translateTransform(-self.position.x, -self.position.y):concatenate(geom.rotateTransform(-self.angle)))
-		self.polygonDirty = true
+		self._dirty_polygon = true
 		net.forceEntUpdate(self,ents.SNAP_NET,false)
 		return
 	end

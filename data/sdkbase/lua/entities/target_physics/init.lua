@@ -18,7 +18,7 @@ end
 function ENT:setPhysEntTag(strTag)
   self.physEntTag = strTag
   self:updatePhysEnt()
-  if SERVER then self.physEntTagDirty = true end
+  if SERVER then self._dirty_physEntTag = true end
 end
 
 function ENT:getPhysEntTag1()
@@ -61,11 +61,10 @@ function ENT.persist( thisClass )
   ents.persist(thisClass, "physEntTag", {
       write=function(field, data, ent)
         data:writeString(field)
-        ent.physEntTagDirty = false
       end,
       read=function(data, ent)
         return data:readNext()
       end,
-      dirty=function(field, ent) return ent.physEntTagDirty end,
+      dirty=ents.DIRTY_CHECK,
     }, ents.SNAP_ALL)
 end

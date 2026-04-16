@@ -87,24 +87,24 @@ function ENT.persist( thisClass )
   ents.persist(thisClass, "maxLength", {
     write=function(field, data) data:writeFloat(field) end,
     read=function(data) return data:readNext() end,
-    dirty=function() return false end,
+    dirty=false,
   }, ents.SNAP_ALL)
   
   ents.persist(thisClass, "width", {
     write=function(field, data) data:writeFloat(field) end,
     read=function(data) return data:readNext() end,
-    dirty=function() return false end,
+    dirty=false,
   }, ents.SNAP_ALL)
   
   ents.persist(thisClass, "segmentLength", {
     write=function(field, data) data:writeFloat(field) end,
     read=function(data) return data:readNext() end,
-    dirty=function() return false end,
+    dirty=false,
   }, ents.SNAP_ALL)
   
   ents.persist(thisClass, "color", {
     write=function(field, data) data:writeColor(field) end,
     read=function(data) return data:readNext() end,
-    dirty=function() return false end,
+    dirty=false,
   }, ents.SNAP_ALL)
 end

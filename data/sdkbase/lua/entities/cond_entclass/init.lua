@@ -14,24 +14,24 @@ function ENT:initialize()
 	self:initProperty("notEq", false)
 	self:initProperty("sourceClass", "base")
 	self:initProperty("allowSubclass", true)
-	self.sourceClassDirty = false
-	self.notEqDirty = false
-	self.allowSubclassDirty = false
+	self._dirty_sourceClass = false
+	self._dirty_notEq = false
+	self._dirty_allowSubclass = false
 end
 
 function ENT:setGamemode(strGamemode)
 	self.sourceClass = strGamemode
-	self.sourceClassDirty = true
+	self._dirty_sourceClass = true
 end
 
 function ENT:setNotEq(bNotEq)
 	self.notEq = bNotEq
-	self.notEqDirty = true
+	self._dirty_notEq = true
 end
 
 function ENT:setAllowSubclass(bAllowSubclass)
 	self.allowSubclass = bAllowSubclass
-	self.allowSubclassDirty = true
+	self._dirty_allowSubclass = true
 end
 
 if ( SERVER ) then
@@ -49,34 +49,34 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "notEq", {
 			write=function(field, data, ent)
 				data:writeBool(field)
-				ent.notEqDirty = false
+				ent._dirty_notEq = false
 			end,
 			read=function(data, ent)
 				return data:readNext()
 			end,
-			dirty=function(field, ent) return ent.notEqDirty end
+			dirty=function(ent) return ent._dirty_notEq end
 		}, ents.SNAP_MAP + ents.SNAP_NET)
 	
 	ents.persist(thisClass, "sourceClass", {
 			write=function(field, data, ent)
 				data:writeString(field)
-				ent.sourceClassDirty = false
+				ent._dirty_sourceClass = false
 			end,
 			read=function(data, ent)
 				return data:readNext()
 			end,
-			dirty=function(field, ent) return ent.sourceClassDirty end
+			dirty=function(ent) return ent._dirty_sourceClass end
 		}, ents.SNAP_MAP + ents.SNAP_NET)
 		
 	ents.persist(thisClass, "allowSubclass", {
 			write=function(field, data, ent)
 				data:writeBool(field)
-				ent.allowSubclassDirty = false
+				ent._dirty_allowSubclass = false
 			end,
 			read=function(data, ent)
 				return data:readNext()
 			end,
-			dirty=function(field, ent) return ent.allowSubclassDirty end
+			dirty=function(ent) return ent._dirty_allowSubclass end
 		}, ents.SNAP_MAP + ents.SNAP_NET)
 	
 end

@@ -52,7 +52,7 @@ end
 
 function ENT:setBodyType( bodyType )
 	self.bodyType = bodyType
-	if SERVER then self.bodyTypeDirty = true end
+	if SERVER then self._dirty_bodyType = true end
 end
 
 function ENT:getBodyType( )
@@ -111,35 +111,34 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "bodyType", {
 		write=function(field, data, ent)
 			data:writeString(field)
-			ent.bodyTypeDirty = false
 		end,
 		read=function(data)
 			return bodyTypes [data:readNext()]
 		end,
-		dirty=function(field, ent) return ent.bodyTypeDirty end,
+		dirty=ents.DIRTY_CHECK,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "dimensions", {
 		write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) end,
 		read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-		dirty=function(field, ent) return false end,
+		dirty=false,
 	})
 	
 	ents.persist(thisClass, "definitionIndex", {
 		write=function(field, data, ent) data:writeInt(field) end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return false end,
+		dirty=false,
 	})
 	
 	ents.persist(thisClass, "destructible", {
 		write=function(field, data, ent) data:writeBool(field) end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return false end,
+		dirty=false,
 	})
 	
 	ents.persist(thisClass, "health", {
 		write=function(field, data, ent) data:writeInt(field) end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return false end,
+		dirty=false,
 	}, ents.SNAP_ALL)
 end

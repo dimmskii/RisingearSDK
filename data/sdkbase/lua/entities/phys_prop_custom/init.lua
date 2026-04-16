@@ -19,12 +19,12 @@ end
 
 function ENT:setSprite( spr )
 	self.sprite = spr
-	if SERVER then self.spriteDirty = true end
+	if SERVER then self._dirty_sprite = true end
 end
 
 function ENT:setCollision( iCollision )
 	self.collision  = iCollision
-	if SERVER then self.collisionDirty = true end
+	if SERVER then self._dirty_collision = true end
 end
 
 function ENT:getCollision( )
@@ -47,7 +47,7 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "sprite", {
 		write=function(field, data, ent)
 			data:writeSprite(field)
-			ent.spriteDirty=false
+			ent._dirty_sprite=false
 		end,
 		read=function(data, ent)
 			local spr = data:readNext()
@@ -56,17 +56,17 @@ function ENT.persist( thisClass )
 			end
 			return spr
 		end,
-		dirty=function(field, ent) return ent.spriteDirty end,
+		dirty=function(ent) return ent._dirty_sprite end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "collision", {
 		write=function(field, data, ent)
 			data:writeInt(field)
-			ent.collisionDirty=false
+			ent._dirty_collision=false
 		end,
 		read=function(data, ent)
 			return data:readNext()
 		end,
-		dirty=function(field, ent) return ent.collisionDirty end,
+		dirty=function(ent) return ent._dirty_collision end,
 	}, ents.SNAP_ALL)
 end

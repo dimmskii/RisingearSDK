@@ -56,7 +56,7 @@ end
 
 function ENT:setStencilEntsTag( strTag )
 	self.stencilEntsTag = strTag
-	if SERVER then self.stencilEntsTagDirty = true end
+	if SERVER then self._dirty_stencilEntsTag = true end
 	if CLIENT and self.initialized then self:updateStencilEnts() end
 end
 
@@ -70,7 +70,7 @@ end
 
 function ENT:setTexture(texture)
 	self.texture = texture
-	self.textureDirty = true
+	self._dirty_texture = true
 end
 
 function ENT:getDistance()
@@ -78,7 +78,7 @@ function ENT:getDistance()
 end
 function ENT:setDistance(distance)
 	self.distance = distance
-	self.distanceDirty = true
+	self._dirty_distance = true
 end
 
 function ENT:getWidth()
@@ -86,7 +86,7 @@ function ENT:getWidth()
 end
 function ENT:setWidth(width)
 	self.width = width
-	self.widthDirty = true
+	self._dirty_width = true
 end
 
 function ENT:getHeight(height)
@@ -94,7 +94,7 @@ function ENT:getHeight(height)
 end
 function ENT:setHeight(height)
 	self.height = height
-	self.heightDirty = true
+	self._dirty_height = true
 end
 
 function ENT:getTextureWidth()
@@ -102,7 +102,7 @@ function ENT:getTextureWidth()
 end
 function ENT:setTextureWidth(textureWidth)
 	self.textureWidth = textureWidth
-	self.textureWidthDirty = true
+	self._dirty_textureWidth = true
 end
 
 function ENT:getTextureHeight()
@@ -110,7 +110,7 @@ function ENT:getTextureHeight()
 end
 function ENT:setTextureHeight(textureHeight)
 	self.textureHeight = textureHeight
-	self.textureHeightDirty = true
+	self._dirty_textureHeight = true
 end
 
 function ENT:isTileX()
@@ -118,7 +118,7 @@ function ENT:isTileX()
 end
 function ENT:setTileX(tileX)
 	self.tileX = tileX
-	self.tileXDirty = true
+	self._dirty_tileX = true
 end
 
 function ENT:isTileY()
@@ -126,7 +126,7 @@ function ENT:isTileY()
 end
 function ENT:setTileY(tileY)
 	self.tileY = tileY
-	self.tileYDirty = true
+	self._dirty_tileY = true
 end
 
 function ENT:isMirroredH()
@@ -134,7 +134,7 @@ function ENT:isMirroredH()
 end
 function ENT:setMirroredH(bMirroredH)
 	self.mirroredH = bMirroredH
-	self.mirroredHDirty = true
+	self._dirty_mirroredH = true
 end
 
 function ENT:isMirroredV()
@@ -142,7 +142,7 @@ function ENT:isMirroredV()
 end
 function ENT:setMirroredV(bMirroredV)
 	self.mirroredV = bMirroredV
-	self.mirroredVDirty = true
+	self._dirty_mirroredV = true
 end
 
 function ENT:getOffset()
@@ -150,7 +150,7 @@ function ENT:getOffset()
 end
 function ENT:setOffset(offset)
 	self.offset = offset
-	self.offsetDirty = true
+	self._dirty_offset = true
 end
 
 function ENT:getConveyor()
@@ -158,7 +158,7 @@ function ENT:getConveyor()
 end
 function ENT:setConveyor(conveyor)
 	self.conveyor = conveyor
-	if SERVER then self.conveyorDirty = true end
+	if SERVER then self._dirty_conveyor = true end
 end
 
 function ENT:getSeparation()
@@ -166,7 +166,7 @@ function ENT:getSeparation()
 end
 function ENT:setSeparation(separation)
 	self.separation = separation
-	if SERVER then self.separationDirty = true end
+	if SERVER then self._dirty_separation = true end
 end
 
 function ENT:getColor()
@@ -174,7 +174,7 @@ function ENT:getColor()
 end
 function ENT:setColor(color)
 	self.color = color
-	if SERVER then self.colorDirty = true end
+	if SERVER then self._dirty_color = true end
 end
 
 function ENT:getBlendMode()
@@ -184,7 +184,7 @@ end
 function ENT:setBlendMode( blend )
 	self.blendMode = blend
 	if SERVER then
-		self.blendModeDirty = true
+		self._dirty_blendMode = true
 	elseif CLIENT and self.renderable then
 		self.renderable:setBlendMode(blend)
 	end
@@ -197,7 +197,7 @@ end
 function ENT:setLightMode( lightMode )
 	self.lightMode = lightMode
 	if SERVER then
-		self.lightModeDirty = true
+		self._dirty_lightMode = true
 	elseif CLIENT and self.renderable then
 		self.renderable:setLightMode(lightMode)
 	end
@@ -210,7 +210,7 @@ end
 function ENT:setLit( bLit )
 	self.lit = bLit
 	if SERVER then
-		self.litDirty = true
+		self._dirty_lit = true
 	elseif CLIENT and self.renderable then
 		self.renderable:setLit( bLit )
 	end
@@ -330,115 +330,115 @@ function ENT.persist( thisClass )
 	ENT_BASE.persist( thisClass )
 	
 	ents.persist(thisClass, "texture", {
-			write=function(field, data, ent) data:writeString(field) ent.textureDirty=false end,
+			write=function(field, data, ent) data:writeString(field) ent._dirty_texture=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.textureDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "color", {
-			write=function(field, data, ent) data:writeFloat(field:getRed()) data:writeFloat(field:getGreen()) data:writeFloat(field:getBlue()) data:writeFloat(field:getAlpha()) ent.colorDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field:getRed()) data:writeFloat(field:getGreen()) data:writeFloat(field:getBlue()) data:writeFloat(field:getAlpha()) ent._dirty_color=false end,
 			read=function(data) return color.fromRGBAf(data:readNext(),data:readNext(),data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.colorDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "distance", {
-			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent.distanceDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent._dirty_distance=false end,
 			read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.distanceDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "width", {
-			write=function(field, data, ent) data:writeFloat(field) ent.widthDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field) ent._dirty_width=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.widthDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	ents.persist(thisClass, "height", {
-			write=function(field, data, ent) data:writeFloat(field) ent.heightDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field) ent._dirty_height=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.heightDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "textureWidth", {
-			write=function(field, data, ent) data:writeFloat(field) ent.textureWidthDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field) ent._dirty_textureWidth=false end,
 			read=function(data,ent)
 				local texWidth = data:readNext()
 				if (ent.sprite) then ent.sprite.width = texWidth end
 				return texWidth
 			end,
-			dirty=function(field, ent) return ent.textureWidthDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	ents.persist(thisClass, "textureHeight", {
-			write=function(field, data, ent) data:writeFloat(field) ent.textureHeightDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field) ent._dirty_textureHeight=false end,
 			read=function(data,ent)
 				local texHeight = data:readNext()
 				if (ent.sprite) then ent.sprite.height = texHeight end
 				return texHeight
 			end,
-			dirty=function(field, ent) return ent.textureHeightDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "tileX", {
-			write=function(field, data, ent) data:writeBool(field) ent.tileXDirty=false end,
+			write=function(field, data, ent) data:writeBool(field) ent._dirty_tileX=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.tileXDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	ents.persist(thisClass, "tileY", {
-			write=function(field, data, ent) data:writeBool(field) ent.tileYDirty=false end,
+			write=function(field, data, ent) data:writeBool(field) ent._dirty_tileY=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.tileYDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "mirroredH", {
-			write=function(field, data, ent) data:writeBool(field) ent.mirroredHDirty=false end,
+			write=function(field, data, ent) data:writeBool(field) ent._dirty_mirroredH=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.mirroredHDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	ents.persist(thisClass, "mirroredV", {
-			write=function(field, data, ent) data:writeBool(field) ent.mirroredVDirty=false end,
+			write=function(field, data, ent) data:writeBool(field) ent._dirty_mirroredV=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.mirroredVDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "offset", {
-			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent.offsetDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent._dirty_offset=false end,
 			read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.offsetDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 	
 	ents.persist(thisClass, "conveyor", {
-			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent.conveyorDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent._dirty_conveyor=false end,
 			read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.conveyorDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 		
 	ents.persist(thisClass, "separation", {
-			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent.separationDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent._dirty_separation=false end,
 			read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.separationDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 		
 	ents.persist(thisClass, "blendMode", {
-			write=function(field, data, ent) data:writeInt(field) ent.blendModeDirty=false end,
+			write=function(field, data, ent) data:writeInt(field) ent._dirty_blendMode=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.blendModeDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 		
 	ents.persist(thisClass, "lightMode", {
-			write=function(field, data, ent) data:writeInt(field) ent.lightModeDirty=false end,
+			write=function(field, data, ent) data:writeInt(field) ent._dirty_lightMode=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.lightModeDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 			
 	ents.persist(thisClass, "lit", {
-			write=function(field, data, ent) data:writeBool(field) ent.litDirty=false end,
+			write=function(field, data, ent) data:writeBool(field) ent._dirty_lit=false end,
 			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.litDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 		
 	ents.persist(thisClass, "stencilEntsTag", {
 			write=function(field, data, ent)
 				data:writeString(field)
-				ent.stencilEntsTagDirty = false
+				ent._dirty_stencilEntsTag = false
 			end,
 			read=function(data, ent)
 				local tag = data:readNext()
@@ -447,6 +447,6 @@ function ENT.persist( thisClass )
 				end
 				return tag
 			end,
-			dirty=function(field, ent) return ent.stencilEntsTagDirty end,
+			dirty=ents.DIRTY_CHECK,
 		})
 end

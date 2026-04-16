@@ -19,7 +19,7 @@ end
 function ENT:setTargetTag(strTag)
 	self.targetTag = strTag
 	self:updateTargetEnts()
-	if SERVER then self.targetTagDirty = true end
+	if SERVER then self._dirty_targetTag = true end
 end
 
 function ENT:getTargetTag()
@@ -29,7 +29,7 @@ end
 function ENT:setSourceTag(strTag)
 	self.sourceTag = strTag
 	self:updateSourceEnts()
-	if SERVER then self.sourceTagDirty = true end
+	if SERVER then self._dirty_sourceTag = true end
 end
 
 function ENT:getSourceTag()
@@ -60,24 +60,22 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "targetTag", {
 			write=function(field, data, ent)
 				data:writeString(field)
-				ent.targetTagDirty = false
 			end,
 			read=function(data, ent)
 				local tag = data:readNext()
 				return tag
 			end,
-			dirty=function(field, ent) return ent.targetTagDirty end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL)
 		
 	ents.persist(thisClass, "sourceTag", {
 			write=function(field, data, ent)
 				data:writeString(field)
-				ent.sourceTagDirty = false
 			end,
 			read=function(data, ent)
 				local tag = data:readNext()
 				return tag
 			end,
-			dirty=function(field, ent) return ent.sourceTagDirty end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL)
 end

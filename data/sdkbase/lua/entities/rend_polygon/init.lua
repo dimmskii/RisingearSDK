@@ -29,7 +29,7 @@ end
 function ENT:setOutlineColor( colOutline )
 	self.outlineColor = colOutline
 	if SERVER then
-		self.outlineColorDirty = true
+		self._dirty_outlineColor = true
 	end
 end
 
@@ -40,7 +40,7 @@ end
 function ENT:setFillColor( colFill )
 	self.fillColor = colFill
 	if SERVER then
-		self.fillColorDirty = true
+		self._dirty_fillColor = true
 	end
 end
 
@@ -51,7 +51,7 @@ end
 function ENT:setOutlineWidth( fWidth )
 	self.outlineWidth = fWidth
 	if SERVER then
-		self.outlineWidthDirty = true
+		self._dirty_outlineWidth = true
 	end
 end
 
@@ -66,7 +66,7 @@ end
 function ENT:setAddedToRenderList( bAdded )
 	self.addedToRenderList = bAdded
 	if SERVER then
-		self.addedToRenderListDirty = true
+		self._dirty_addedToRenderList = true
 	end
 end
 
@@ -88,7 +88,7 @@ function ENT.persist( thisClass )
 		read=function(data)
 			return data:readNext()
 		end,
-		dirty=function(ent) return ent.polygonDirty end,
+		dirty=function(ent) return ent._dirty_polygon end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "outlineColor", {
@@ -98,7 +98,7 @@ function ENT.persist( thisClass )
 		read=function(data)
 			return data:readNext()
 		end,
-		dirty=function(ent) return ent.outlineColorDirty end,
+		dirty=function(ent) return ent._dirty_outlineColor end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "fillColor", {
@@ -108,7 +108,7 @@ function ENT.persist( thisClass )
 		read=function(data)
 			return data:readNext()
 		end,
-		dirty=function(ent) return ent.fillColorDirty end,
+		dirty=function(ent) return ent._dirty_fillColor end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "outlineWidth", {
@@ -118,7 +118,7 @@ function ENT.persist( thisClass )
 		read=function(data)
 			return data:readNext()
 		end,
-		dirty=function(ent) return ent.outlineWidthDirty end,
+		dirty=function(ent) return ent._dirty_outlineWidth end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "addedToRenderList", {
@@ -128,7 +128,7 @@ function ENT.persist( thisClass )
 		read=function(data)
 			return data:readNext()
 		end,
-		dirty=function(ent) return ent.addedToRenderListDirty end,
+		dirty=function(ent) return ent._dirty_addedToRenderList end,
 	}, ents.SNAP_ALL)
 	
 end

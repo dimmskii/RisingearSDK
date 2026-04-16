@@ -49,6 +49,7 @@ function ENT:getEyePos()
 end
 
 local biped_crouch = skeleton_anims.get("biped_crouch")
+local biped_crouchwalk = skeleton_anims.get("biped_crouchwalk")
 local biped_run = skeleton_anims.get("biped_run")
 local biped_walk = skeleton_anims.get("biped_walk")
 local biped_stand = skeleton_anims.get("biped_stand")
@@ -69,18 +70,35 @@ function ENT:updateSkeletalAnim( delta )
 	local theta = aimDif:getTheta()
 	if self:isAlive() then
 	  if self.movement.crouched then
-      if self.skeleton:getAnimation() ~= biped_crouch then
-        self:setAnimationPlay(skeletal.AP_PLAY)
-        torso:setAnimationNoChildren(biped_crouch)
-        torso:setAnimationFrameNoChildren(0)
-        torso:setAnimationSpeedNoChildren(5)
-        legupperleft:setAnimation(biped_crouch)
-        legupperleft:setAnimationFrame(0)
-        legupperleft:setAnimationSpeed(5)
-        legupperright:setAnimation(biped_crouch)
-        legupperright:setAnimationFrame(0)
-        legupperright:setAnimationSpeed(5)
+	  
+		  if self.movement.direction ~= 0 and absvel > 0.15 and self.movement.landed then
+					self:setAnimationPlay(skeletal.AP_LOOP)
+					self.skeleton:setAnimation(biped_crouchwalk)
+					self.skeleton:setAnimationSpeed(math.min(absvel * 10.0, 25))
+		  else
+	      if self.skeleton:getAnimation() ~= biped_crouch then
+	      
+	      	if self.skeleton:getAnimation() == biped_crouchwalk then
+	      		self:setAnimationPlay(skeletal.AP_PLAY)
+		        self.skeleton:setAnimation(biped_crouch)
+		        self.skeleton:setAnimationFrame(1)
+	        else
+		        self:setAnimationPlay(skeletal.AP_PLAY)
+		        torso:setAnimationNoChildren(biped_crouch)
+		        torso:setAnimationFrameNoChildren(0)
+		        torso:setAnimationSpeedNoChildren(5)
+		        legupperleft:setAnimation(biped_crouch)
+		        legupperleft:setAnimationFrame(0)
+		        legupperleft:setAnimationSpeed(5)
+		        legupperright:setAnimation(biped_crouch)
+		        legupperright:setAnimationFrame(0)
+		        legupperright:setAnimationSpeed(5)
+	        end
+	        
+	        
+	      end
       end
+      
 		elseif self.movement.reloading then
 			if self.skeleton:getAnimation() ~= biped_reload then
 				self:setAnimationPlay(skeletal.AP_PLAY)
@@ -247,169 +265,156 @@ function ENT.persist( thisClass )
 			read=function(data, ent)
 				return data:readNext()
 			end,
-			dirty=function(field, ent) return false end
+			dirty=false
 		}, ents.SNAP_NET)
 	
 	ents.persist(thisClass, "skinColor", {
 			write=function(field, data, ent)
 				data:writeColor(field)
-				ent.skinColorDirty=false
 			end,
 			read=function(data, ent)
 				local col = data:readNext()
 				ent:setSkinColor(col)
 				return col
 			end,
-			dirty=function(field, ent) return ent.skinColorDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "hair", {
 			write=function(field, data, ent)
 				data:writeString(tostring(field))
-				ent.hairDirty=false
 			end,
 			read=function(data, ent)
 				local str = data:readNext()
 				ent:setHair(str)
 				return str
 			end,
-			dirty=function(field, ent) return ent.hairDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "hairColor", {
 			write=function(field, data, ent)
 				data:writeColor(field)
-				ent.hairColorDirty=false
 			end,
 			read=function(data, ent)
 				local col = data:readNext()
 				ent:setHairColor(col)
 				return col
 			end,
-			dirty=function(field, ent) return ent.hairColorDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "facialHair", {
 			write=function(field, data, ent)
 				data:writeString(tostring(field))
-				ent.facialHairDirty=false
 			end,
 			read=function(data, ent)
 				local str = data:readNext()
 				ent:setFacialHair(str)
 				return str
 			end,
-			dirty=function(field, ent) return ent.facialHairDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "facialHairColor", {
 			write=function(field, data, ent)
 				data:writeColor(field)
-				ent.facialHairColorDirty=false
 			end,
 			read=function(data, ent)
 				local col = data:readNext()
 				ent:setFacialHairColor(col)
 				return col
 			end,
-			dirty=function(field, ent) return ent.facialHairColorDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "eyebrows", {
 			write=function(field, data, ent)
 				data:writeString(tostring(field))
-				ent.eyebrowsDirty=false
 			end,
 			read=function(data, ent)
 				local str = data:readNext()
 				ent:setEyebrows(str)
 				return str
 			end,
-			dirty=function(field, ent) return ent.eyebrowsDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "eyebrowColor", {
 			write=function(field, data, ent)
 				data:writeColor(field)
-				ent.eyebrowColorDirty=false
 			end,
 			read=function(data, ent)
 				local col = data:readNext()
 				ent:setEyebrowColor(col)
 				return col
 			end,
-			dirty=function(field, ent) return ent.eyebrowColorDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "eyes", {
 			write=function(field, data, ent)
 				data:writeString(tostring(field))
-				ent.eyesDirty=false
 			end,
 			read=function(data, ent)
 				local str = data:readNext()
 				ent:setEyes(str)
 				return str
 			end,
-			dirty=function(field, ent) return ent.eyesDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "eyeColor", {
 			write=function(field, data, ent)
 				data:writeColor(field)
-				ent.eyeColorDirty=false
 			end,
 			read=function(data, ent)
 				local col = data:readNext()
 				ent:setEyeColor(col)
 				return col
 			end,
-			dirty=function(field, ent) return ent.eyeColorDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 	
 	ents.persist(thisClass, "top", {
 			write=function(field, data, ent)
 				data:writeString(tostring(field))
-				ent.topDirty=false
 			end,
 			read=function(data, ent)
 				local str = data:readNext()
 				ent:setTop(str)
 				return str
 			end,
-			dirty=function(field, ent) return ent.topDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 	
 	ents.persist(thisClass, "bottom", {
 			write=function(field, data, ent)
 				data:writeString(tostring(field))
-				ent.bottomDirty=false
 			end,
 			read=function(data, ent)
 				local str = data:readNext()
 				ent:setBottom(str)
 				return str
 			end,
-			dirty=function(field, ent) return ent.bottomDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 	
 	ents.persist(thisClass, "shoes", {
 			write=function(field, data, ent)
 				data:writeString(tostring(field))
-				ent.shoesDirty=false
 			end,
 			read=function(data, ent)
 				local str = data:readNext()
 				ent:setShoes(str)
 				return str
 			end,
-			dirty=function(field, ent) return ent.shoesDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 	
 	ents.persist(thisClass, "weapon", {
 			write=function(field, data, ent)
 				data:writeEntityID(field)
-				ent.weaponDirty=false
 			end,
 			read=function(data, ent)
 				if (ent.skeleton) then
@@ -418,6 +423,6 @@ function ENT.persist( thisClass )
 				end
 				return ents.findByID(data:readNext())
 			end,
-			dirty=function(field, ent) return ent.weaponDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 end

@@ -21,7 +21,7 @@ end
 
 function ENT:setSizeWidth( bSizeWidth )
 	self.bSizeWidth = bSizeWidth
-	if SERVER then self.bSizeWidthDirty = true end
+	if SERVER then self._dirty_bSizeWidth = true end
 end
 
 function ENT:getSize()
@@ -30,7 +30,7 @@ end
 
 function ENT:setSize( fSize )
 	self.size = fSize
-	if SERVER then self.sizeDirty = true end
+	if SERVER then self._dirty_size = true end
 end
 
 if (CLIENT) then
@@ -80,16 +80,16 @@ function ENT.persist( thisClass )
 		read=function(data)
 			return data:readNext()
 		end,
-		dirty=function(field, ent) return ent.sizeDirty end,
+		dirty=function(ent) return ent._dirty_size end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "bSizeWidth", {
 		write=function(field, data, ent)
 			data:writeBool(field)
-			ent.platformDirty = false
+			ent._dirty_platform = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.bSizeWidthDirty end,
+		dirty=function(ent) return ent._dirty_bSizeWidth end,
 	}, ents.SNAP_ALL)
 	
 end

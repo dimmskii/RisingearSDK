@@ -35,12 +35,12 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "radius", {
 		write=function(field, data, ent) data:writeReal(field) end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return false end,
+		dirty=function(ent) return false end,
 	}, ents.SNAP_NET)
 	
 	ents.persist(thisClass, "color", {
 		write=function(field, data, ent) data:writeColor(field) end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return false end,
+		dirty=function(ent) return false end,
 	}, ents.SNAP_NET)
 end

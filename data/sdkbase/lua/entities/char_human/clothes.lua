@@ -47,7 +47,7 @@ function ENT:setTop( id )
 	
 	HUMAN_CLOTHES.addTop( self.skeleton, item )
 	self.top = id
-	self.topDirty = true
+	self._dirty_top = true
 end
 
 function ENT:removeTop()
@@ -55,7 +55,7 @@ function ENT:removeTop()
 	
 	HUMAN_CLOTHES.removeTop( self.skeleton )
 	self.top = ""
-	self.topDirty = true
+	self._dirty_top = true
 end
 
 
@@ -89,7 +89,7 @@ function ENT:setBottom( id )
 	
 	HUMAN_CLOTHES.addBottom( self.skeleton, item )
 	self.bottom = id
-	self.bottomDirty = true
+	self._dirty_bottom = true
 end
 
 function ENT:removeBottom()
@@ -97,7 +97,7 @@ function ENT:removeBottom()
 	
 	HUMAN_CLOTHES.removeBottom( self.skeleton )
 	self.bottom = ""
-	self.bottomDirty = true
+	self._dirty_bottom = true
 end
 
 
@@ -132,7 +132,7 @@ function ENT:setShoes( id )
 	
 	HUMAN_CLOTHES.addShoes( self.skeleton, item )
 	self.shoes = id
-	self.shoesDirty = true
+	self._dirty_shoes = true
 end
 
 function ENT:removeShoes()
@@ -140,5 +140,5 @@ function ENT:removeShoes()
 	
 	HUMAN_CLOTHES.removeShoes( self.skeleton )
 	self.shoes = ""
-	self.shoesDirty = true
+	self._dirty_shoes = true
 end

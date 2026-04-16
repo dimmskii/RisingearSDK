@@ -40,10 +40,9 @@ local function writeMovementTable(movement, data)
 	data:writeVec2(movement.platformVelocity)
 end
 
-local movementRead
 local function readMovementTable(data)
 	-- Read movement from data
-	movementRead = {}
+	local movementRead = {}
 	movementRead.landed = data:readNext()
 	movementRead.crouched = data:readNext()
 	movementRead.direction = data:readNext()
@@ -91,8 +90,8 @@ function ENT:initialize()
 	self:initProperty("aiClass", "")
 	
 	if SERVER then
-		self.healthDirty = false
-		self.aliveDirty = false
+		self._dirty_health = false
+		self._dirty_alive = false
 	end
 	
 	self:initSkeletal()
@@ -123,7 +122,7 @@ end
 function ENT:setHealth( iHealth )
 	self.health = iHealth
 	if SERVER then
-		self.healthDirty = true
+		self._dirty_health = true
 	end
 end
 
@@ -181,7 +180,7 @@ end
 function ENT:setAlive(bAlive)
 	self.alive = alive
 	if SERVER then
-		self.aliveDirty = true
+		self._dirty_alive = true
 	end
 end
 
@@ -236,7 +235,7 @@ function ENT.persist( thisClass )
 				end
 				return angs
 			end,
-			dirty=function(field, ent) -- return dirty true for ragdollAngles only if at least some phys limbs are awake
+			dirty=function(ent) -- return dirty true for ragdollAngles only if at least some phys limbs are awake
 				for _,v in ipairs(ent.bodies) do
 					if v:isAwake() then return true end
 				end
@@ -249,7 +248,7 @@ function ENT.persist( thisClass )
         for k,v in pairs(field) do
           data:writeString(v)
         end
-        ent.ragdollDismemDirty = false
+        ent._dirty_ragdollDismem = false
       end,
       read=function(data, ent)
         local tab = {}
@@ -259,13 +258,13 @@ function ENT.persist( thisClass )
         ent:cl_updateDismemberment(tab)
         return tab
       end,
-      dirty=function(field, ent) return ent.ragdollDismemDirty end,
+      dirty=ents.DIRTY_CHECK,
     }, ents.SNAP_NET + ents.SNAP_SAV)
 		
 	ents.persist(thisClass, "aimVec", {
-			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent.aimVecDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent._dirty_aimVec=false end,
 			read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.aimVecDirty end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "animationPlay", {
@@ -280,19 +279,17 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "health", {
 			write=function(field, data, ent)
 				data:writeShort(field)
-				ent.healthDirty = false
 			end,
 			read=function(data, ent) return data:readNext() end,
-			dirty=function(field, ent) return ent.healthDirty end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL)
 		
 	ents.persist(thisClass, "alive", {
 			write=function(field, data, ent)
 				data:writeBool(field)
-				ent.aliveDirty = false
 			end,
 			read=function(data, ent) return data:readNext() end,
-			dirty=function(field, ent) return ent.aliveDirty end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL )
 		
 	ents.persist(thisClass, "useTarget", {
@@ -303,7 +300,6 @@ function ENT.persist( thisClass )
 --					data:writeInt(field.id)
 --				end
 				data:writeEntityID(field)
-				ent.useTargetDirty=false
 			end,
 			read=function(data, ent)
 				--local entID = data:readNext()
@@ -312,18 +308,17 @@ function ENT.persist( thisClass )
 				--return useTargetEnt
 				return ents.findByID(data:readNext())
 			end,
-			dirty=function(field, ent) return ent.useTargetDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "weapon", {
 			write=function(field, data, ent)
 				data:writeEntityID(field)
-				ent.weaponDirty=false
 			end,
 			read=function(data, ent)
 				return ents.findByID(data:readNext())
 			end,
-			dirty=function(field, ent) return ent.weaponDirty end
+			dirty=ents.DIRTY_TRUE
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "movement", {
@@ -333,7 +328,7 @@ function ENT.persist( thisClass )
 			read=function(data)
 				return readMovementTable(data)
 			end,
-			dirty=function() return true end -- TODO: dirty on movement change only! save bandwitdh
+			dirty=true -- TODO: dirty on movement change only! save bandwitdh
 		}, ents.SNAP_NET)
 		
 	ents.persist(thisClass, "aiClass", {

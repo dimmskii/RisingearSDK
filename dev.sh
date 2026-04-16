@@ -8,7 +8,7 @@ cd "$(dirname "$0")"
 
 if [ -f "launcher_linux" ]; then
     # Start launcher_linux with arguments in background (similar to 'start')
-    ./launcher_linux -dev +set lua_nocompile 1 "$@" &
+    ./launcher_linux -dev "$@" &
 else
     echo "Error: launcher_linux not found in this script's directory."
     echo "Press any key to exit . . ."

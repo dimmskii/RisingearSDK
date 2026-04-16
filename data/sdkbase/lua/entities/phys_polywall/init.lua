@@ -33,7 +33,7 @@ function ENT:setPlatform(bPlatform)
 	self.platform = bPlatform
 	
 	if (SERVER) then
-		self.platformDirty = true
+		self._dirty_platform = true
 	end
 end
 
@@ -55,16 +55,16 @@ function ENT.persist( thisClass )
 		read=function(data)
 			return data:readNext()
 		end,
-		dirty=function() return false end,
+		dirty=false,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "platform", {
 		write=function(field, data, ent)
 			data:writeBool(field)
-			ent.platformDirty = false
+			ent._dirty_platform = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.platformDirty end,
+		dirty=ents.DIRTY_CHECK,
 	}, ents.SNAP_ALL)
 	
 end

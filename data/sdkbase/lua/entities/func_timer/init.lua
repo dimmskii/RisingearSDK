@@ -23,7 +23,7 @@ end
 
 function ENT:setRunning( bRunning )
 	self.running = bRunning
-	if (SERVER) then self.runningDirty = true end
+	if (SERVER) then self._dirty_running = true end
 end
 
 function ENT:isRunning()
@@ -32,7 +32,7 @@ end
 
 function ENT:setRepeating( bRepeating )
 	self.repeating = bRepeating
-	if (SERVER) then self.repeatingDirty = true end
+	if (SERVER) then self._dirty_repeating = true end
 end
 
 function ENT:isRepeating()
@@ -41,7 +41,7 @@ end
 
 function ENT:setTime( fSeconds )
 	self.time = fSeconds
-	if (SERVER) then self.timeDirty = true end
+	if (SERVER) then self._dirty_time = true end
 end
 
 function ENT:getTime()
@@ -50,7 +50,7 @@ end
 
 function ENT:setTimeRemaining( fSeconds )
 	self.timeRemaining = fSeconds
-	if (SERVER) then self.timeRemainingDirty = true end
+	if (SERVER) then self._dirty_timeRemaining = true end
 end
 
 function ENT:getTimeRemaining()
@@ -71,8 +71,8 @@ function ENT:onTriggered( source, caller )
 	self.source = source
 	self.caller = caller
 	if (SERVER) then
-		self.sourceDirty = true
-		self.callerDirty = true
+		self._dirty_source = true
+		self._dirty_caller = true
 		self:setRunning(true) -- TODO trigger modes: toggle, pause, etc
 		self:initTimer()
 	end
@@ -94,71 +94,71 @@ function ENT.persist( thisClass )
 --	ents.persist(thisClass, "runOnInit", {
 --		write=function(field, data, ent)
 --			data:writeBool(field)
---			ent.runOnInitDirty = false
+--			ent._dirty_runOnInit = false
 --		end,
 --		read=function(data) return data:readNext() end,
---		dirty=function(field, ent) return ent.runOnInitDirty end,
+--		dirty=function(ent) return ent._dirty_runOnInit end,
 --	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "running", {
 		write=function(field, data, ent)
 			data:writeBool(field)
-			ent.runningDirty = false
+			ent._dirty_running = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.runningDirty end,
+		dirty=function(ent) return ent._dirty_running end,
 	}, ents.SNAP_NET + ents.SNAP_SAV)
 	
 	ents.persist(thisClass, "repeating", {
 		write=function(field, data, ent)
 			data:writeBool(field)
-			ent.repeatingDirty = false
+			ent._dirty_repeating = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.repeatingDirty end,
+		dirty=function(ent) return ent._dirty_repeating end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "time", {
 		write=function(field, data, ent)
 			data:writeFloat(field)
-			ent.timeDirty = false
+			ent._dirty_time = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.timeDirty end,
+		dirty=function(ent) return ent._dirty_time end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "timeRemaining", {
 		write=function(field, data, ent)
 			data:writeFloat(field)
-			ent.timeRemainingDirty = false
+			ent._dirty_timeRemaining = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.timeRemainingDirty end,
+		dirty=function(ent) return ent._dirty_timeRemaining end,
 	}, ents.SNAP_NET + ents.SNAP_SAV)
 	
 	ents.persist(thisClass, "source", {
 			write=function(field, data, ent)
 				data:writeEntityID(field)
-				ent.sourceDirty = false
+				ent._dirty_source = false
 			end,
 			read=function(data, ent)
 				local id = data:readNext()
 				local source = ents.findByID(id)
 				return source
 			end,
-			dirty=function(field, ent) return ent.sourceDirty end,
+			dirty=function(ent) return ent._dirty_source end,
 		}, ents.SNAP_NET + ents.SNAP_SAV)
 		
 	ents.persist(thisClass, "caller", {
 			write=function(field, data, ent)
 				data:writeEntityID(field)
-				ent.callerDirty = false
+				ent._dirty_caller = false
 			end,
 			read=function(data, ent)
 				local id = data:readNext()
 				local caller = ents.findByID(id)
 				return caller
 			end,
-			dirty=function(field, ent) return ent.callerDirty end,
+			dirty=function(ent) return ent._dirty_caller end,
 		}, ents.SNAP_NET + ents.SNAP_SAV)
 end

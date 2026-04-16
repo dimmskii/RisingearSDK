@@ -16,6 +16,8 @@ end
 
 local ENT_BASE = ents.getClass(ENT.CLASSNAME_BASE)
 
+ENT.LAZY_UPDATE_DISTANCE = 40
+
 function ENT:initialize()
 	self:initProperty("materialID", "wood")
 	self:initProperty("material", materials.get(self.materialID))
@@ -42,7 +44,7 @@ function ENT:setPosition( arg1, arg2 )
 	end
 	self.position = _temp_vec2
 	_temp_vec2 = nil
-	if SERVER then self.positionDirty = true end
+	if SERVER then self._dirty_position = true end
 end
 
 function ENT:setVelocity( arg1, arg2 )
@@ -57,7 +59,7 @@ function ENT:setVelocity( arg1, arg2 )
 	end
 	self.velocity = _temp_vec2
 	_temp_vec2 = nil
-	if SERVER then self.velocityDirty = true end
+	if SERVER then self._dirty_velocity = true end
 end
 
 function ENT:setAngle( a )
@@ -65,7 +67,7 @@ function ENT:setAngle( a )
 		self:getBody():setTransform(self:getBody():getPosition(), a)
 	end
 	self.angle = a
-	if SERVER then self.angleDirty = true end
+	if SERVER then self._dirty_angle = true end
 end
 
 function ENT:setAngleVelocity( av )
@@ -73,7 +75,7 @@ function ENT:setAngleVelocity( av )
 		self:getBody():setAngularVelocity(av)
 	end
 	self.angleVel = av
-	if SERVER then self.angleVelocityDirty = true end
+	if SERVER then self._dirty_angleVelocity = true end
 end
 
 function ENT:getBody()
@@ -124,7 +126,7 @@ function ENT:setMaterialID(strMaterialID)
 		self.materialID = strMaterialID
 		self.material = material
 	end
-	--if SERVER then self.materialIDDirty = true end
+	--if SERVER then self._dirty_materialID = true end
 end
 
 function ENT.persist( thisClass )
@@ -133,7 +135,7 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "materialID", {
 		write=function(field, data) data:writeString(field) end,
 		read=function(data) return data:readNext() end,
-		dirty=function() return false end,
+		dirty=false,
 	}, ents.SNAP_ALL)
 	
 end

@@ -55,7 +55,7 @@ function ENT.persist( thisClass )
   ents.persist(thisClass, "skeleton", {
       write=function(field, data, ent)
         data:writeSkeleton(field, data)
-        ent.skeletonDirty=false
+        ent._dirty_skeleton=false
       end,
       read=function(data, ent)
         local skel = data:readNext(data)
@@ -63,13 +63,13 @@ function ENT.persist( thisClass )
         
         return skel
       end,
-      dirty=function(field, ent) return ent.skeletonDirty end
+      dirty=ents.DIRTY_CHECK
     }, ents.SNAP_NET)
     
     ents.persist(thisClass, "rootLimbName", {
       write=function(field, data, ent) data:writeString(field) end,
       read=function(data) return data:readNext() end,
-      dirty=function(field, ent) return ent.rootLimbNameDirty end
+      dirty=ents.DIRTY_CHECK
     }, ents.SNAP_NET)
     
   ents.persist(thisClass, "mirrored", {
@@ -92,6 +92,7 @@ function ENT.persist( thisClass )
         end
         return angs
       end,
+      dirty=true,
     }, ents.SNAP_NET)
     
 end

@@ -47,12 +47,12 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "dimensions", {
 		write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) end,
 		read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-		dirty=function(field, ent) return false end,
+		dirty=function(ent) return false end,
 	})
 	
 	ents.persist(thisClass, "definitionIndex", {
 		write=function(field, data, ent) data:writeInt(field) end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return false end,
+		dirty=function(ent) return false end,
 	})
 end

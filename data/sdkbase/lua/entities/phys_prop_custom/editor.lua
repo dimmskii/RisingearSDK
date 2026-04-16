@@ -20,7 +20,7 @@ function ENT:editor_applyTexture( texPath )
 	if (self.sprite) then
 		self.sprite:setTexture(texPath)
 		if SERVER then
-			self.spriteDirty=true
+			self._dirty_sprite=true
 			net.forceEntUpdate(self,ents.SNAP_NET,false)
 		end
 	end
@@ -70,7 +70,7 @@ elseif SERVER then
 		self:setPosition(rect:getX() + self.sprite.origin.x, rect:getY() + self.sprite.origin.y)
 		--self.sprite.position = geom.vec2(rect:getX(),rect:getY())
 		self:setSprite(self.sprite)
-		self.spriteDirty=true
+		self._dirty_sprite=true
 		net.forceEntUpdate(self,ents.SNAP_NET,false)
 	end
 end

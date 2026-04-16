@@ -25,25 +25,25 @@ function ENT:updateMotion( delta ) -- Override on server only to poll from Box2D
 	
 	physPos = body:getPosition()
 	if not physPos:equals(self.position) then
-		self.positionDirty = true
+		self._dirty_position = true
 		self.position = physPos:clone()
 	end
 	
 	physVel = body:getLinearVelocity()
 	if not physVel:equals(self.velocity) then
-		self.velocityDirty = true
+		self._dirty_velocity = true
 		self.velocity = physVel:clone()
 	end
 	
 	physAngle = body:getAngle()
 	if physAngle ~= self.angle then
-		self.angleDirty = true
+		self._dirty_angle = true
 		self.angle = physAngle
 	end
 	
 	physAngleVel = body:getAngularVelocity()
 	if physAngleVel ~= self.angleVelocity then
-		self.angleVelocityDirty = true
+		self._dirty_angleVelocity = true
 		self.angleVelocity = physAngleVel
 	end
 end

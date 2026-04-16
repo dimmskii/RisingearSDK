@@ -58,7 +58,7 @@ function ENT.persist( thisClass )
   ents.persist(thisClass, "frequencyHz", {
     write=function(field, data) data:writeFloat(field) end,
     read=function(data) return data:readNext() end,
-    dirty=function() return false end,
+    dirty=false,
   }, ents.SNAP_ALL)
   
 end

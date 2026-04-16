@@ -22,7 +22,7 @@ end
 
 function ENT:setPlaying( bPlaying )
 	self.playing = bPlaying
-	self.playingDirty = true
+	self._dirty_playing = true
 end
 
 function ENT:isPlaying()
@@ -31,7 +31,7 @@ end
 
 function ENT:setLoop( bLooping )
 	self.loop = bLooping
-	if (SERVER) then self.loopDirty = true end
+	if (SERVER) then self._dirty_loop = true end
 end
 
 function ENT:isLoop()
@@ -40,7 +40,7 @@ end
 
 function ENT:setDistance( fDist )
 	self.distance = fDist
-	if (SERVER) then self.distanceDirty = true end
+	if (SERVER) then self._dirty_distance = true end
 end
 
 function ENT:getDistance()
@@ -49,7 +49,7 @@ end
 
 function ENT:setVolume( fVol )
 	self.volume = fVol
-	if (SERVER) then self.volumeDirty = true end
+	if (SERVER) then self._dirty_volume = true end
 end
 
 function ENT:getVolume()
@@ -58,7 +58,7 @@ end
 
 function ENT:setPitch( fPitch )
 	self.pitch = fPitch
-	if (SERVER) then self.pitchDirty = true end
+	if (SERVER) then self._dirty_pitch = true end
 end
 
 function ENT:getPitch()
@@ -87,45 +87,45 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "playing", {
 		write=function(field, data, ent)
 			data:writeBool(field)
-			ent.playingDirty = false
+			ent._dirty_playing = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.playingDirty end,
+		dirty=function(ent) return ent._dirty_playing end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "loop", {
 		write=function(field, data, ent)
 			data:writeBool(field)
-			ent.loopDirty = false
+			ent._dirty_loop = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.loopDirty end,
+		dirty=function(ent) return ent._dirty_loop end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "distance", {
 		write=function(field, data, ent)
 			data:writeFloat(field)
-			ent.distanceDirty = false
+			ent._dirty_distance = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.distanceDirty end,
+		dirty=function(ent) return ent._dirty_distance end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "pitch", {
 		write=function(field, data, ent)
 			data:writeFloat(field)
-			ent.pitchDirty = false
+			ent._dirty_pitch = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.pitchDirty end,
+		dirty=function(ent) return ent._dirty_pitch end,
 	}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "volume", {
 		write=function(field, data, ent)
 			data:writeFloat(field)
-			ent.volumeDirty = false
+			ent._dirty_volume = false
 		end,
 		read=function(data) return data:readNext() end,
-		dirty=function(field, ent) return ent.volumeDirty end,
+		dirty=function(ent) return ent._dirty_volume end,
 	}, ents.SNAP_ALL)
 end

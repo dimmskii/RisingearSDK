@@ -56,7 +56,7 @@ function ENT:setEquipped( character )
 		self.equipped = nil
 	end
 	
-	if SERVER then self.equippedDirty = true end
+	if SERVER then self._dirty_equipped = true end
 end
 
 function ENT:isEquipped()
@@ -121,11 +121,10 @@ function ENT.persist( thisClass )
 	ents.persist(thisClass, "equipped", {
 			write=function(field, data, ent)
 				data:writeEntityID(field)
-				ent.equippedDirty=false
 			end,
 			read=function(data, ent)
 				return ents.findByID(data:readNext())
 			end,
-			dirty=function(field, ent) return ent.equippedDirty end
+			dirty=ents.DIRTY_CHECK
 		}, ents.SNAP_ALL)
 end

@@ -44,7 +44,7 @@ function ENT:setSkinColor( color )
 	end
 	self.skinColor = color
 	if (SERVER) then
-		self.skinColorDirty = true
+		self._dirty_skinColor = true
 	end
 end
 
@@ -92,7 +92,7 @@ function ENT:setHair( id )
 				self.hair = hair.id
 				self:setHairColor( self.hairColor )
 				if (SERVER) then
-					self.hairDirty = true
+					self._dirty_hair = true
 				end
 			else
 				console.err("Hair table returned a nil limb")
@@ -104,7 +104,7 @@ end
 function ENT:removeHair()
 	HUMAN_FEATURES.removeHair( self.skeleton )
 	self.hair = ""
-	self.hairDirty = true
+	self._dirty_hair = true
 end
 
 function ENT:setHairColor( color )
@@ -116,7 +116,7 @@ function ENT:setHairColor( color )
 	end
 	self.hairColor = color
 	if (SERVER) then
-		self.hairColorDirty = true
+		self._dirty_hairColor = true
 	end
 end
 
@@ -166,7 +166,7 @@ function ENT:setEyes( id )
 					pupil.physicsDisabled = true -- Make sure that the pupil's physics flag is disabled too fix
 				end
 				if (SERVER) then
-					self.eyesDirty = true
+					self._dirty_eyes = true
 				end
 			else
 				console.err("Eyes table returned a nil limb")
@@ -178,7 +178,7 @@ end
 function ENT:removeEyes()
 	HUMAN_FEATURES.removeEyes( self.skeleton )
 	self.eyes = ""
-	self.eyesDirty = true
+	self._dirty_eyes = true
 end
 
 function ENT:setEyeColor( color )
@@ -190,7 +190,7 @@ function ENT:setEyeColor( color )
 	end
 	self.eyeColor = color
 	if (SERVER) then
-		self.eyeColorDirty = true
+		self._dirty_eyeColor = true
 	end
 end
 
@@ -235,7 +235,7 @@ function ENT:setEyebrows( id )
 				self.eyebrows = eyebrow.id
 				self:setEyebrowColor( self.eyebrowColor )
 				if (SERVER) then
-					self.eyebrowsDirty = true
+					self._dirty_eyebrows = true
 				end
 			else
 				console.err("Eyebrow table returned a nil limb")
@@ -247,7 +247,7 @@ end
 function ENT:removeEyebrows()
 	HUMAN_FEATURES.removeEyebrows( self.skeleton )
 	self.eyebrows = ""
-	self.eyebrowsDirty = true
+	self._dirty_eyebrows = true
 end
 
 function ENT:setEyebrowColor( color )
@@ -259,7 +259,7 @@ function ENT:setEyebrowColor( color )
 	end
 	self.eyebrowColor = color
 	if (SERVER) then
-		self.eyebrowColorDirty = true
+		self._dirty_eyebrowColor = true
 	end
 end
 
@@ -305,7 +305,7 @@ function ENT:setFacialHair( id )
 				self.facialHair = facialHair.id
 				self:setFacialHairColor( self.facialHairColor )
 				if (SERVER) then
-					self.facialHairDirty = true
+					self._dirty_facialHair = true
 				end
 			else
 				console.err("Facial hair table returned a nil limb")
@@ -317,7 +317,7 @@ end
 function ENT:removeFacialHair()
 	HUMAN_FEATURES.removeFacialHair( self.skeleton )
 	self.facialHair = ""
-	self.facialHairDirty = true
+	self._dirty_facialHair = true
 end
 
 function ENT:setFacialHairColor( color )
@@ -329,6 +329,6 @@ function ENT:setFacialHairColor( color )
 	end
 	self.facialHairColor = color
 	if (SERVER) then
-		self.facialHairColorDirty = true
+		self._dirty_facialHairColor = true
 	end
 end

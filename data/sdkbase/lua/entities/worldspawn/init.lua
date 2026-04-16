@@ -26,7 +26,7 @@ end
 function ENT:setAmbientLightColor(col)
 	self.ambientLightColor = col
 	if SERVER then
-		self.ambientLightColorDirty = true
+		self._dirty_ambientLightColor = true
 	elseif CLIENT then
 		updateAmbientLightColor()
 	end
@@ -36,9 +36,9 @@ function ENT.persist( thisClass )
 	ENT_BASE.persist( thisClass )
 		
 	ents.persist(thisClass, "ambientLightColor", {
-    write=function(field, data, ent) data:writeColor(field) ent.ambientLightColorDirty=false end,
+    write=function(field, data, ent) data:writeColor(field) ent._dirty_ambientLightColor=false end,
     read=function(data) local col = data:readNext() updateAmbientLightColor(col) return col end,
-    dirty=function(field, ent) return ent.ambientLightColorDirty end,
+    dirty=function(ent) return ent._dirty_ambientLightColor end,
   }, ents.SNAP_NET + ents.SNAP_MAP)
   
 	ents.persist(thisClass, "music", {

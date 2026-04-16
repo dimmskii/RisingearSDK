@@ -431,7 +431,7 @@ function ENT:aimAt( x, y )
   vec2Aim = geom.vec2( x, y )
   if not vec2Aim:equals(self:getAimVecWorld()) then
     self.aimVec = vec2Aim:sub(self.position)
-    self.aimVecDirty = true
+    self._dirty_aimVec = true
     
     
     vecUseTarg = vec2Aim:clone()
@@ -462,7 +462,7 @@ function ENT:aimAt( x, y )
     end
     if (self.useTarget ~= useTarget) then
       self.useTarget = useTarget
-			self.useTargetDirty = true
+			self._dirty_useTarget = true
 	  end
   end
 end
@@ -491,7 +491,7 @@ function ENT:pickupWeapon( entWeapon )
   -- Pick up new weapon
   entWeapon:onPickedUp( self )
   self.weapon = entWeapon
-  self.weaponDirty = true
+  self._dirty_weapon = true
   
 end
 
@@ -500,7 +500,7 @@ timer.create(1,-1,function()
   
   for k,v in pairs(ents.getAll()) do
     if v.valid and ents.isClass(v,"char_base",true) then
-      v.weaponDirty = true
+      v._dirty_weapon = true
     end
   end
 end, true, false)
@@ -557,7 +557,7 @@ function ENT:dropWeapon()
   self.weapon:setVelocity(vecThrowVel.x,vecThrowVel.y)
   
   self.weapon = nil
-  self.weaponDirty = true
+  self._dirty_weapon = true
   
   local data = net.data()
   data:writeInt( self.id )
@@ -622,7 +622,7 @@ function ENT:dismember( body )
     table.insert(self.ragdollDismem, l:getName()) -- add to dismem persist table
   end
   
-  self.ragdollDismemDirty = true
+  self._dirty_ragdollDismem = true
   
   local ragent = ents.create("phys_ragdoll",false)
   ragent.position = limb:getTransformedOrigin():toVec2()

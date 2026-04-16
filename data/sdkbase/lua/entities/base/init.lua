@@ -50,7 +50,7 @@ end
 
 function ENT:setTag(str)
 	self.tag = tostring(str)
-	self.tagDirty = true
+	self._dirty_tag = true
 end
 
 function ENT:getTag()
@@ -71,7 +71,7 @@ function ENT:setPosition( arg1, arg2 )
   	self.position.x = arg1
   	self.position.y = arg2
   end
-	self.positionDirty = true
+	self._dirty_position = true
 end
 
 function ENT:getPosition( )
@@ -85,7 +85,7 @@ function ENT:setVelocity( arg1, arg2 )
     self.velocity.x = arg1
     self.velocity.y = arg2
   end
-  self.velocityDirty = true
+  self._dirty_velocity = true
 end
 
 function ENT:getVelocity( )
@@ -94,7 +94,7 @@ end
 
 function ENT:setAngle( a)
 	self.angle = a
-	self.angleDirty = true
+	self._dirty_angle = true
 end
 
 function ENT:getAngle()
@@ -103,7 +103,7 @@ end
 
 function ENT:setAngleVelocity( av )
 	self.angleVelocity = av
-	self.angleVelocityDirty = true
+	self._dirty_angleVelocity = true
 end
 
 function ENT:getAngleVelocity()
@@ -112,7 +112,7 @@ end
 
 function ENT:setDepth( depth )
 	self.depth = depth
-	self.depthDirty = true
+	self._dirty_depth = true
 end
 
 function ENT:getDepth()
@@ -221,44 +221,44 @@ end
 
 function ENT.persist( thisClass )
 	ents.persist(thisClass, "position", {
-			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent.positionDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) end,
 			read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.positionDirty end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL)
 		
 	ents.persist(thisClass, "velocity", {
-			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) ent.velocityDirty=false end,
+			write=function(field, data, ent) data:writeFloat(field.x) data:writeFloat(field.y) end,
 			read=function(data) return geom.vec2(data:readNext(),data:readNext()) end,
-			dirty=function(field, ent) return ent.velocityDirty end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_NET + ents.SNAP_SAV)
 		
 	ents.persist(thisClass, "angle", {
-			write=function(field, data, ent) data:writeFloat(field) ent.angleDirty=false end,
-			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.angleDirty end,
+			write=function(field, data, ent) data:writeFloat(field) end,
+--			read=function(data) return data:readNext() end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL)
 		
 	ents.persist(thisClass, "angleVelocity", {
-			write=function(field, data, ent) data:writeFloat(field) ent.angleVelocityDirty=false end,
-			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.angleVelocityDirty end,
+			write=function(field, data, ent) data:writeFloat(field) end,
+--			read=function(data) return data:readNext() end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_NET + ents.SNAP_SAV)
 		
 	ents.persist(thisClass, "depth", {
-			write=function(field, data, ent) data:writeFloat(field) ent.depthDirty=false end,
-			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.depthDirty end,
+			write=function(field, data, ent) data:writeFloat(field) end,
+--			read=function(data) return data:readNext() end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL)
 	
 	ents.persist(thisClass, "tag", {
-			write=function(field, data, ent) data:writeString(field) ent.tagDirty=false end,
-			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return ent.tagDirty end,
+			write=function(field, data, ent) data:writeString(field) end,
+--			read=function(data) return data:readNext() end,
+			dirty=ents.DIRTY_CHECK,
 		}, ents.SNAP_ALL)
 	ents.persist(thisClass, "usable", {
 			write=function(field, data, ent) data:writeBool(field) end,
-			read=function(data) return data:readNext() end,
-			dirty=function(field, ent) return false end,
+--			read=function(data) return data:readNext() end,
+			dirty=false,
 		}, ents.SNAP_NET)
 end
 
